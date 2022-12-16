@@ -11,7 +11,9 @@ class Player
     float angle = 180.0;
     double curX = 0, curY = -0.03, curZ = -0.55;
     Direction curDirection = NEGATIVE_Z;
+
     double STEP_SIZE = 0.005;
+    double LEAN_STEP_SIZE = 0.05;
 
     bool keys[256] = {};
 
@@ -78,6 +80,42 @@ class Player
         return false;
     }
 
+    void leanRight() {
+        double center = groundArray->at(curGround).centerPos;
+        switch (curDirection) {
+        case NEGATIVE_X: 
+            if (curZ - LEAN_STEP_SIZE > center - 0.1) curZ -= LEAN_STEP_SIZE;
+            break;
+        case POSITIVE_X:
+            if (curZ + LEAN_STEP_SIZE < center + 0.1) curZ += LEAN_STEP_SIZE;
+            break;
+        case NEGATIVE_Z:
+            if (curX + LEAN_STEP_SIZE < center + 0.1) curX += LEAN_STEP_SIZE;
+            break;
+        case POSITIVE_Z:
+            if (curX - LEAN_STEP_SIZE > center - 0.1) curX -= LEAN_STEP_SIZE;
+            break;
+        }
+    }
+
+    void leanLeft() {
+        double center = groundArray->at(curGround).centerPos;
+        switch (curDirection) {
+        case POSITIVE_X:
+            if (curZ - LEAN_STEP_SIZE > center - 0.1) curZ -= LEAN_STEP_SIZE;
+            break;
+        case NEGATIVE_X:
+            if (curZ + LEAN_STEP_SIZE < center + 0.1) curZ += LEAN_STEP_SIZE;
+            break;
+        case POSITIVE_Z:
+            if (curX + LEAN_STEP_SIZE < center + 0.1) curX += LEAN_STEP_SIZE;
+            break;
+        case NEGATIVE_Z:
+            if (curX - LEAN_STEP_SIZE > center - 0.1) curX -= LEAN_STEP_SIZE;
+            break;
+        }
+    }
+
     void gotoNextGround() {
         curGround = (curGround + 1) % groundArray->size();
     }
@@ -93,6 +131,14 @@ class Player
             angle -= 90;
             curDirection = getRightDirection();
             gotoNextGround();
+        }
+
+        if (!keys['m'] && c == 'm') {
+            leanRight();
+        }
+        
+        if (!keys['n'] && c == 'n') {
+            leanLeft();
         }
 
         keys[c] = true;
@@ -138,8 +184,6 @@ class Player
             }
             break;
         }
-
-        cout << "cur ground " << curGround << "\n";
     }
 
     void draw() {

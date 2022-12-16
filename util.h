@@ -11,6 +11,7 @@ enum Direction {
 struct GroundInfo {
     Direction dir;
     double endPos;
+    double centerPos;
 };
 
 class util

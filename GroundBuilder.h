@@ -56,6 +56,7 @@ public:
 		auto curAngle = 0;
 
 		double groundsOffset = offsetZ;
+		double midPoint = offsetZ;
 
 		switch (curDir) {
 		case NEGATIVE_Z:
@@ -63,29 +64,33 @@ public:
 			offsetZ = curZ - 0.75;
 			curAngle = 0;
 			groundsOffset = offsetZ;
+			midPoint = curX;
 			break;
 		case POSITIVE_X:
 			curX += 0.55;
 			offsetX = curX + 0.75;
 			curAngle = 90;
 			groundsOffset = offsetX;
+			midPoint = curZ;
 			break;
 		case POSITIVE_Z:
 			curZ += 0.55;
 			offsetZ = curZ + 0.75;
 			curAngle = 180;
 			groundsOffset = offsetZ;
+			midPoint = curX;
 			break;
 		case NEGATIVE_X:
 			curX -= 0.55;
 			offsetX = curX - 0.75;
 			curAngle = 270;
 			groundsOffset = offsetX;
+			midPoint = curZ;
 			break;
 		}
 
 		if(isFillGrounds)
-			grounds.push_back({ curDir, groundsOffset });
+			grounds.push_back({ curDir, groundsOffset, midPoint });
 
 		glPushMatrix();
 		glTranslated(curX, 0, curZ);
@@ -100,6 +105,7 @@ public:
 		auto curAngle = 0;
 
 		double groundsOffset = offsetZ;
+		double midPoint = offsetZ;
 
 		switch (curDir) {
 		case NEGATIVE_Z:
@@ -110,6 +116,7 @@ public:
 			offsetX = curX + 0.75;
 			curAngle = 90;
 			groundsOffset = offsetX;
+			midPoint = offsetZ;
 			break;
 		case POSITIVE_X:
 			curDir = POSITIVE_Z;
@@ -119,6 +126,7 @@ public:
 			offsetZ = curZ + 0.75;
 			curAngle = 180;
 			groundsOffset = offsetZ;
+			midPoint = offsetX;
 			break;
 		case POSITIVE_Z:
 			curDir = NEGATIVE_X;
@@ -128,6 +136,7 @@ public:
 			offsetX = curX - 0.75;
 			curAngle = 270;
 			groundsOffset = offsetX;
+			midPoint = offsetZ;
 			break;
 		case NEGATIVE_X:
 			curDir = NEGATIVE_Z;
@@ -137,11 +146,12 @@ public:
 			offsetZ = curZ - 0.75;
 			curAngle = 0;
 			groundsOffset = offsetZ;
+			midPoint = offsetX;
 			break;
 		}
 
 		if (isFillGrounds)
-			grounds.push_back({ curDir, groundsOffset });
+			grounds.push_back({ curDir, groundsOffset, midPoint });
 
 		glPushMatrix();
 		glTranslated(curX, 0, curZ);
@@ -156,6 +166,7 @@ public:
 		auto curAngle = 0;
 
 		double groundsOffset = offsetZ;
+		double midPoint = offsetX;
 
 		switch (curDir) {
 		case NEGATIVE_Z:
@@ -166,6 +177,7 @@ public:
 			offsetX = curX - 0.75;
 			curAngle = 270;
 			groundsOffset = offsetX;
+			midPoint = offsetZ;
 			break;
 		case POSITIVE_X:
 			curDir = NEGATIVE_Z;
@@ -175,6 +187,7 @@ public:
 			offsetZ = curZ - 0.75;
 			curAngle = 0;
 			groundsOffset = offsetZ;
+			midPoint = offsetX;
 			break;
 		case POSITIVE_Z:
 			curDir = POSITIVE_X;
@@ -184,6 +197,7 @@ public:
 			offsetX = curX + 0.75;
 			curAngle = 90;
 			groundsOffset = offsetX;
+			midPoint = offsetZ;
 			break;
 		case NEGATIVE_X:
 			curDir = POSITIVE_Z;
@@ -193,11 +207,12 @@ public:
 			offsetZ = curZ + 0.75;
 			curAngle = 180;
 			groundsOffset = offsetZ;
+			midPoint = offsetX;
 			break;
 		}
 
 		if (isFillGrounds)
-			grounds.push_back({ curDir, groundsOffset });
+			grounds.push_back({ curDir, groundsOffset, midPoint });
 
 		glPushMatrix();
 		glTranslated(curX, 0, curZ);
