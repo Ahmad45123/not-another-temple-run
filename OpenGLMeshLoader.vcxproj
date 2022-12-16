@@ -84,12 +84,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GLTexture.cpp" />
+    <ClCompile Include="GroundBuilder.cpp" />
     <ClCompile Include="Model_3DS.cpp" />
     <ClCompile Include="OpenGLMeshLoader19.cpp" />
+    <ClCompile Include="util.cpp" />
+    <ClCompile Include="Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="GLTexture.h" />
+    <ClInclude Include="GroundBuilder.h" />
     <ClInclude Include="Model_3DS.h" />
+    <ClInclude Include="util.h" />
+    <ClInclude Include="Vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -24,6 +24,9 @@
     <ClCompile Include="OpenGLMeshLoader19.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Vector.cpp" />
+    <ClCompile Include="util.cpp" />
+    <ClCompile Include="GroundBuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLTexture.h">
@@ -32,5 +35,9 @@
     <ClInclude Include="Model_3DS.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Vector.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="util.h" />
+    <ClInclude Include="GroundBuilder.h" />
   </ItemGroup>
 </Project>
