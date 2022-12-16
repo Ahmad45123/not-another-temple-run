@@ -8,6 +8,11 @@ enum Direction {
     NEGATIVE_Z,
 };
 
+struct GroundInfo {
+    Direction dir;
+    double endPos;
+};
+
 class util
 {
 public:

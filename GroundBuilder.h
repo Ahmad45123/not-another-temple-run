@@ -8,11 +8,6 @@
 
 using namespace std;
 
-struct GroundInfo {
-	Direction dir;
-	double endPos;
-};
-
 class GroundBuilder
 {
 public:
@@ -21,6 +16,7 @@ public:
 	double offsetX = 0;
 	double offsetZ = 0;
 	Direction curDir = NEGATIVE_Z;
+	bool isFillGrounds = true;
 	vector<GroundInfo> grounds;
 
 	void drawBase() {
@@ -48,37 +44,48 @@ public:
 		grndTexture.Load("Textures/ground.bmp");
 	}
 
+	void reset() {
+		offsetZ = 0;
+		offsetX = 0;
+		curDir = Direction::NEGATIVE_Z;
+	}
+
 	void drawForward() {
 		auto curX = offsetX;
 		auto curZ = offsetZ;
 		auto curAngle = 0;
+
+		double groundsOffset = offsetZ;
 
 		switch (curDir) {
 		case NEGATIVE_Z:
 			curZ -= 0.55;
 			offsetZ = curZ - 0.75;
 			curAngle = 0;
-			grounds.push_back({ curDir, offsetZ });
+			groundsOffset = offsetZ;
 			break;
 		case POSITIVE_X:
 			curX += 0.55;
 			offsetX = curX + 0.75;
 			curAngle = 90;
-			grounds.push_back({ curDir, offsetX });
+			groundsOffset = offsetX;
 			break;
 		case POSITIVE_Z:
 			curZ += 0.55;
 			offsetZ = curZ + 0.75;
 			curAngle = 180;
-			grounds.push_back({ curDir, offsetZ });
+			groundsOffset = offsetZ;
 			break;
 		case NEGATIVE_X:
 			curX -= 0.55;
 			offsetX = curX - 0.75;
 			curAngle = 270;
-			grounds.push_back({ curDir, offsetX });
+			groundsOffset = offsetX;
 			break;
 		}
+
+		if(isFillGrounds)
+			grounds.push_back({ curDir, groundsOffset });
 
 		glPushMatrix();
 		glTranslated(curX, 0, curZ);
@@ -92,6 +99,8 @@ public:
 		auto curZ = offsetZ;
 		auto curAngle = 0;
 
+		double groundsOffset = offsetZ;
+
 		switch (curDir) {
 		case NEGATIVE_Z:
 			curDir = POSITIVE_X;
@@ -100,7 +109,7 @@ public:
 			offsetZ = curZ;
 			offsetX = curX + 0.75;
 			curAngle = 90;
-			grounds.push_back({ curDir, offsetX });
+			groundsOffset = offsetX;
 			break;
 		case POSITIVE_X:
 			curDir = POSITIVE_Z;
@@ -109,7 +118,7 @@ public:
 			offsetX = curX;
 			offsetZ = curZ + 0.75;
 			curAngle = 180;
-			grounds.push_back({ curDir, offsetZ });
+			groundsOffset = offsetZ;
 			break;
 		case POSITIVE_Z:
 			curDir = NEGATIVE_X;
@@ -118,7 +127,7 @@ public:
 			offsetZ = curZ;
 			offsetX = curX - 0.75;
 			curAngle = 270;
-			grounds.push_back({ curDir, offsetX });
+			groundsOffset = offsetX;
 			break;
 		case NEGATIVE_X:
 			curDir = NEGATIVE_Z;
@@ -127,9 +136,12 @@ public:
 			offsetX = curX;
 			offsetZ = curZ - 0.75;
 			curAngle = 0;
-			grounds.push_back({ curDir, offsetZ });
+			groundsOffset = offsetZ;
 			break;
 		}
+
+		if (isFillGrounds)
+			grounds.push_back({ curDir, groundsOffset });
 
 		glPushMatrix();
 		glTranslated(curX, 0, curZ);
@@ -143,6 +155,8 @@ public:
 		auto curZ = offsetZ;
 		auto curAngle = 0;
 
+		double groundsOffset = offsetZ;
+
 		switch (curDir) {
 		case NEGATIVE_Z:
 			curDir = NEGATIVE_X;
@@ -151,7 +165,7 @@ public:
 			offsetZ = curZ;
 			offsetX = curX - 0.75;
 			curAngle = 270;
-			grounds.push_back({ curDir, offsetX });
+			groundsOffset = offsetX;
 			break;
 		case POSITIVE_X:
 			curDir = NEGATIVE_Z;
@@ -160,7 +174,7 @@ public:
 			offsetX = curX;
 			offsetZ = curZ - 0.75;
 			curAngle = 0;
-			grounds.push_back({ curDir, offsetZ });
+			groundsOffset = offsetZ;
 			break;
 		case POSITIVE_Z:
 			curDir = POSITIVE_X;
@@ -169,7 +183,7 @@ public:
 			offsetZ = curZ;
 			offsetX = curX + 0.75;
 			curAngle = 90;
-			grounds.push_back({ curDir, offsetX });
+			groundsOffset = offsetX;
 			break;
 		case NEGATIVE_X:
 			curDir = POSITIVE_Z;
@@ -178,9 +192,12 @@ public:
 			offsetX = curX;
 			offsetZ = curZ + 0.75;
 			curAngle = 180;
-			grounds.push_back({ curDir, offsetZ });
+			groundsOffset = offsetZ;
 			break;
 		}
+
+		if (isFillGrounds)
+			grounds.push_back({ curDir, groundsOffset });
 
 		glPushMatrix();
 		glTranslated(curX, 0, curZ);

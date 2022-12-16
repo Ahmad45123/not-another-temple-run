@@ -5,49 +5,94 @@
 
 class Player
 {
+    vector<GroundInfo>* groundArray;
+
     public:
     float angle = 180.0;
-    double curX = 0, curY = -0.05, curZ = -0.55;
+    double curX = 0, curY = -0.03, curZ = -0.55;
     Direction curDirection = NEGATIVE_Z;
-    double STEP_SIZE = 0.003;
+    double STEP_SIZE = 0.005;
 
     bool keys[256] = {};
 
-    void keyDown(char c) {
-        if (!keys['a'] && c == 'a') {
-            angle += 90;
+    int curGround = 0;
+
+    Player(vector<GroundInfo> *grounds) {
+        groundArray = grounds;
+    }
+
+    Direction getRightDirection() {
+        switch (curDirection) {
+        case NEGATIVE_X:
+            return NEGATIVE_Z;
+            break;
+        case POSITIVE_X:
+            return POSITIVE_Z;
+            break;
+        case NEGATIVE_Z:
+            return POSITIVE_X;
+            break;
+        case POSITIVE_Z:
+            return NEGATIVE_X;
+            break;
+        }
+    }
+
+    Direction getLeftDirection() {
+        switch (curDirection) {
+        case NEGATIVE_X:
+            return POSITIVE_Z;
+            break;
+        case POSITIVE_X:
+            return NEGATIVE_Z;
+            break;
+        case NEGATIVE_Z:
+            return NEGATIVE_X;
+            break;
+        case POSITIVE_Z:
+            return POSITIVE_X;
+            break;
+        }
+    }
+
+    bool canTurn(Direction targetDirection) {
+        int nextGround = (curGround + 1) % groundArray->size();
+        if (groundArray->at(nextGround).dir == targetDirection) {
+            double end = groundArray->at(curGround).endPos;
+            cout << "end pos " << end << "\n";
             switch (curDirection) {
             case NEGATIVE_X:
-                curDirection = POSITIVE_Z;
+                if (curX >= end && curX <= end + 0.2) return true;
                 break;
             case POSITIVE_X:
-                curDirection = NEGATIVE_Z;
+                if (curX <= end && curX >= end - 0.2) return true;
                 break;
             case NEGATIVE_Z:
-                curDirection = NEGATIVE_X;
+                if (curZ >= end && curZ <= end + 0.2) return true;
                 break;
             case POSITIVE_Z:
-                curDirection = POSITIVE_X;
+                if (curZ <= end && curZ >= end - 0.2) return true;
                 break;
             }
         }
+        return false;
+    }
 
-        if (!keys['d'] && c == 'd') {
+    void gotoNextGround() {
+        curGround = (curGround + 1) % groundArray->size();
+    }
+
+    void keyDown(char c) {
+        if (!keys['a'] && c == 'a' && canTurn(getLeftDirection())) {
+            angle += 90;
+            curDirection = getLeftDirection();
+            gotoNextGround();
+        }
+
+        if (!keys['d'] && c == 'd' && canTurn(getRightDirection())) {
             angle -= 90;
-            switch (curDirection) {
-            case NEGATIVE_X:
-                curDirection = NEGATIVE_Z;
-                break;
-            case POSITIVE_X:
-                curDirection = POSITIVE_Z;
-                break;
-            case NEGATIVE_Z:
-                curDirection = POSITIVE_X;
-                break;
-            case POSITIVE_Z:
-                curDirection = NEGATIVE_X;
-                break;
-            }
+            curDirection = getRightDirection();
+            gotoNextGround();
         }
 
         keys[c] = true;
@@ -58,22 +103,43 @@ class Player
     }
 
     void tick() {
-        if (keys['w']) {
-            switch (curDirection) {
-            case NEGATIVE_X:
-                curX -= 0.01;
-                break;
-            case POSITIVE_X:
-                curX += 0.01;
-                break;
-            case NEGATIVE_Z:
-                curZ -= 0.01;
-                break;
-            case POSITIVE_Z:
-                curZ += 0.01;
-                break;
+        int nextGround = (curGround + 1) % groundArray->size();
+        Direction nxtGroundDir = groundArray->at(nextGround).dir;
+
+        double curGroundEnd = groundArray->at(curGround).endPos;
+
+        switch (curDirection) {
+        case NEGATIVE_X:
+            curX -= STEP_SIZE;
+            if (nxtGroundDir == curDirection && curX <= curGroundEnd) gotoNextGround();
+            if (nxtGroundDir != curDirection && curX < curGroundEnd) {
+                STEP_SIZE = 0;
             }
+            break;
+        case POSITIVE_X:
+            curX += STEP_SIZE;
+            if (nxtGroundDir == curDirection && curX >= curGroundEnd) gotoNextGround();
+            if (nxtGroundDir != curDirection && curX > curGroundEnd) {
+                STEP_SIZE = 0;
+            }
+            break;
+        case NEGATIVE_Z:
+            curZ -= STEP_SIZE;
+            if (nxtGroundDir == curDirection && curZ <= curGroundEnd) gotoNextGround();
+            if(nxtGroundDir != curDirection && curZ < curGroundEnd) {
+                STEP_SIZE = 0;
+            }
+            break;
+        case POSITIVE_Z:
+            curZ += STEP_SIZE;
+            if (nxtGroundDir == curDirection && curZ >= curGroundEnd) gotoNextGround();
+            if(nxtGroundDir != curDirection && curZ > curGroundEnd) {
+                STEP_SIZE = 0;
+            }
+            break;
         }
+
+        cout << "cur ground " << curGround << "\n";
     }
 
     void draw() {

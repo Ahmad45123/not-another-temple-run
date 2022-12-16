@@ -94,7 +94,7 @@ void myInit(void)
 
 	camera = new Camera();
 	groundBuilder = new GroundBuilder();
-	player = new Player();
+	player = new Player(&groundBuilder->grounds);
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_NORMALIZE);
@@ -126,10 +126,7 @@ void myDisplay(void)
 	glLightfv(GL_LIGHT0, GL_AMBIENT, lightIntensity);
 
 	// Draw Ground
-	groundBuilder->offsetX = 0;
-	groundBuilder->offsetZ = 0;
-	groundBuilder->curDir = Direction::NEGATIVE_Z;
-	groundBuilder->grounds.clear();
+	groundBuilder->reset();
 	groundBuilder->drawForward();
 	groundBuilder->drawForward();
 	groundBuilder->drawRight();
@@ -146,6 +143,7 @@ void myDisplay(void)
 	groundBuilder->drawForward();
 	groundBuilder->drawRight();
 	groundBuilder->drawForward();
+	groundBuilder->isFillGrounds = false;
 
 
 	//sky box
@@ -232,7 +230,8 @@ void LoadAssets()
 //=======================================================================
 void timerFunc(int _) {
 	camera->tick();
-	player->tick();
+	if(groundBuilder->grounds.size() > 0)
+		player->tick();
 	glutTimerFunc(10, timerFunc, 0);
 	glutPostRedisplay();
 }
