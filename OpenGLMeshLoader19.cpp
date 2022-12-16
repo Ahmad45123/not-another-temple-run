@@ -6,6 +6,7 @@
 #include "Vector.h"
 #include "Camera.h"
 #include "GroundBuilder.h"
+#include "Player.h"
 
 int WIDTH = 1280;
 int HEIGHT = 720;
@@ -22,6 +23,7 @@ GLdouble zFar = 1000;
 // Textures
 Camera *camera;
 GroundBuilder* groundBuilder;
+Player* player;
 
 //=======================================================================
 // Lighting Configuration Function
@@ -92,6 +94,7 @@ void myInit(void)
 
 	camera = new Camera();
 	groundBuilder = new GroundBuilder();
+	player = new Player();
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_NORMALIZE);
@@ -157,9 +160,11 @@ void myDisplay(void)
 	gluQuadricNormals(qobj, GL_SMOOTH);
 	gluSphere(qobj, 200, 100, 100);
 	gluDeleteQuadric(qobj);
-
-
 	glPopMatrix();
+
+	// Draw player
+	player->draw();
+
 	glutSwapBuffers();
 }
 
@@ -169,10 +174,12 @@ void myDisplay(void)
 void keyDown(unsigned char button, int x, int y)
 {
 	camera->keyDown(button);
+	player->keyDown(button);
 }
 void keyUp(unsigned char button, int x, int y)
 {
 	camera->keyUp(button);
+	player->keyUp(button);
 }
 void specialKeyDown(int button, int x, int y)
 {
@@ -225,6 +232,7 @@ void LoadAssets()
 //=======================================================================
 void timerFunc(int _) {
 	camera->tick();
+	player->tick();
 	glutTimerFunc(10, timerFunc, 0);
 	glutPostRedisplay();
 }

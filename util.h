@@ -1,5 +1,13 @@
 #pragma once
 #include <glut.h>
+
+enum Direction {
+    POSITIVE_X,
+    NEGATIVE_X,
+    POSITIVE_Z,
+    NEGATIVE_Z,
+};
+
 class util
 {
 public:

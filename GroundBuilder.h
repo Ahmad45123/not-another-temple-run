@@ -8,13 +8,6 @@
 
 using namespace std;
 
-enum Direction {
-	POSITIVE_X,
-	NEGATIVE_X,
-	POSITIVE_Z,
-	NEGATIVE_Z,
-};
-
 struct GroundInfo {
 	Direction dir;
 	double endPos;
