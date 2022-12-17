@@ -101,25 +101,17 @@ void myInit(void)
 	glEnable(GL_NORMALIZE);
 }
 
-void setupCamera()
-{
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluPerspective(fovy, WIDTH / HEIGHT, zNear, zFar);
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	camera->draw();
-}
-
 //=======================================================================
 // Display Function
 //=======================================================================
 void myDisplay(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
+	// Camera
+	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	setupCamera();
+	camera->draw();
 
 	GLfloat lightIntensity[] = { 0.7, 0.7, 0.7, 1.0f };
 	GLfloat lightPosition[] = { 0.0f, 100.0f, 0.0f, 0.0f };
