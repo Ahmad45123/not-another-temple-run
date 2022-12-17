@@ -5,6 +5,7 @@ enum Direction {
     NEGATIVE_X,
     POSITIVE_Z,
     NEGATIVE_Z,
+    UNKNOWN
 };
 
 struct GroundInfo {

@@ -17,6 +17,7 @@ Direction Player::getRightDirection() {
         return NEGATIVE_X;
         break;
     }
+    return UNKNOWN;
 }
 
 Direction Player::getLeftDirection() {
@@ -34,6 +35,7 @@ Direction Player::getLeftDirection() {
         return POSITIVE_X;
         break;
     }
+    return UNKNOWN;
 }
 
 bool Player::canTurn(Direction targetDirection) {
