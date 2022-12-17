@@ -80,10 +80,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="NotAnotherTempleRun.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="GLTexture.cpp" />
     <ClCompile Include="GroundBuilder.cpp" />
     <ClCompile Include="Model_3DS.cpp" />
-    <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="util.cpp" />
     <ClCompile Include="Vector.cpp" />
