@@ -14,7 +14,7 @@
     <ProjectGuid>{2EE1F2C2-040C-46D8-8332-127B746115A6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>OpenGL3DTemplate</RootNamespace>
-    <ProjectName>OpenGLMeshLoader19</ProjectName>
+    <ProjectName>NotAnotherTempleRun</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -80,13 +80,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="GLTexture.cpp" />
     <ClCompile Include="GroundBuilder.cpp" />
     <ClCompile Include="Model_3DS.cpp" />
-    <ClCompile Include="OpenGLMeshLoader19.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="util.cpp" />
     <ClCompile Include="Vector.cpp" />

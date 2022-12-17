@@ -3,15 +3,10 @@
 class Vector
 {
 public:
-	GLdouble x, y, z;
+	GLdouble x = {}, y = {}, z = {};
 	Vector() {}
 	Vector(GLdouble _x, GLdouble _y, GLdouble _z) : x(_x), y(_y), z(_z) {}
 
-	void operator +=(float value)
-	{
-		x += value;
-		y += value;
-		z += value;
-	}
+	void operator +=(float value);
 };
 
