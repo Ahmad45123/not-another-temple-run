@@ -133,10 +133,10 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-Model_3DS::Model_3DS()
+Model_3DS::Model_3DS(double posX, double posY, double posZ, double scale, double rotX, double rotY, double rotZ)
 {
 	// Initialization
-
+	
 	// Don't show the normals by default
 	shownormals = false;
 
@@ -147,14 +147,15 @@ Model_3DS::Model_3DS()
 	visible = true;
 
 	// Set up the default position
-	pos.x = 0.0f;
-	pos.y = 0.0f;
-	pos.z = 0.0f;
+	pos.x = posX;
+	pos.y = posY;
+	pos.z = posZ;
+	
 	// Set up the default rotation
-	rot.x = 0.0f;
-	rot.y = 0.0f;
-	rot.z = 0.0f;
-
+	rot.x = rotX;
+	rot.y = rotY;
+	rot.z = rotZ;
+	
 	// Set up the path
 	path = new char[80];
 	sprintf_s(path, sizeof(path), "");
@@ -164,7 +165,8 @@ Model_3DS::Model_3DS()
 	numMaterials = 0;
 
 	// Set the scale to one
-	scale = 1.0f;
+	//scale = 0.02f;
+	this->scale = scale;
 }
 
 Model_3DS::~Model_3DS()
