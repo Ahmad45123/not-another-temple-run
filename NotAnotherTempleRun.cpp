@@ -7,7 +7,10 @@
 #include "GroundBuilder.h"
 #include "Player.h"
 
+#include <iostream>
 #include <glut.h>
+
+using namespace std;
 
 int WIDTH = 1280;
 int HEIGHT = 720;
@@ -155,7 +158,6 @@ void myDisplay(void)
 
 	// Draw player
 	player->draw();
-
 	glutSwapBuffers();
 }
 
@@ -213,7 +215,6 @@ void LoadAssets()
 {
 	// Loading Model files
 	
-
 	// Loading texture files
 	loadBMP(&tex, "Textures/blu-sky-3.bmp", true);
 }

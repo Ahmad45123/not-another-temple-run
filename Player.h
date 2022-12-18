@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include "Model_3DS.h"
 
 #include "util.h"
 
@@ -7,8 +8,8 @@ class Player
 {
     std::vector<GroundInfo>* groundArray;
 
-    float angle = 180.0;
-    double curX = 0, curY = -0.03, curZ = -0.55;
+    float angle = 180.0f;
+    double curX = 0, curY = 0.02, curZ = -0.55;
     Direction curDirection = NEGATIVE_Z;
 
     double STEP_SIZE = 0.005;
@@ -19,7 +20,11 @@ class Player
     int curGround = 0;
 
     public:
+		
+	Model_3DS playerModel = Model_3DS(curX, curY, curZ, 0.02);
+	
     Player(std::vector<GroundInfo> *grounds) {
+		playerModel.Load("models/player/csMan2.3ds");
         groundArray = grounds;
     }
 

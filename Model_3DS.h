@@ -160,7 +160,7 @@ public:
 	void Load(char *name);	// Loads a model
 	void Draw();			// Draws the model
 	FILE *bin3ds;			// The binary 3ds file
-	Model_3DS();			// Constructor
+	Model_3DS(double posX, double posY, double posZ, double scale, double rotX = 0.0, double rotY = 0.0, double rotZ = 0.0);			// Constructor
 	virtual ~Model_3DS();	// Destructor
 
 private:
