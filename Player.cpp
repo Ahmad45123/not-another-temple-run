@@ -137,7 +137,6 @@ void Player::tick() {
     switch (curDirection) {
     case NEGATIVE_X:
         curX -= STEP_SIZE;
-		playerModel.pos.x -= STEP_SIZE; // TODO
         if (nxtGroundDir == curDirection && curX <= curGroundEnd) gotoNextGround();
         if (nxtGroundDir != curDirection && curX < curGroundEnd) {
             STEP_SIZE = 0;
