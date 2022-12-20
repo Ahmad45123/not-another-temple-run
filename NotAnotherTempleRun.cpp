@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "GroundBuilder.h"
 #include "Player.h"
+#include "ObstacleGenerator.h"
 
 #include <iostream>
 #include <glut.h>
@@ -28,6 +29,7 @@ GLdouble zFar = 1000;
 Camera *camera;
 GroundBuilder* groundBuilder;
 Player* player;
+ObstacleGenerator* obstacleGen;
 
 //=======================================================================
 // Lighting Configuration Function
@@ -99,6 +101,7 @@ void myInit(void)
 	camera = new Camera();
 	groundBuilder = new GroundBuilder();
 	player = new Player(&groundBuilder->grounds);
+	obstacleGen = new ObstacleGenerator(&groundBuilder->grounds, ROCK);
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_NORMALIZE);
@@ -141,6 +144,7 @@ void myDisplay(void)
 	groundBuilder->drawForward();
 	groundBuilder->isFillGrounds = false;
 
+	obstacleGen->drawObstacles();
 
 	//sky box
 	glPushMatrix();
@@ -224,8 +228,10 @@ void LoadAssets()
 //=======================================================================
 void timerFunc(int _) {
 	camera->tick();
-	if(groundBuilder->grounds.size() > 0)
+	if (groundBuilder->grounds.size() > 0) {
 		player->tick();
+		if (obstacleGen->obstacles.size() == 0) obstacleGen->generateObstacles();
+	}
 	glutTimerFunc(10, timerFunc, 0);
 	glutPostRedisplay();
 }

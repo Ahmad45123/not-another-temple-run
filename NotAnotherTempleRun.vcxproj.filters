@@ -34,6 +34,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="NotAnotherTempleRun.cpp" />
+    <ClCompile Include="Obstacle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObstacleGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLTexture.h">
@@ -57,5 +61,9 @@
     <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Obstacle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObstacleGenerator.h" />
   </ItemGroup>
 </Project>

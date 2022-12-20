@@ -1,4 +1,5 @@
 #include "util.h"
+#include <random>
 #include <glut.h>
 
 void util::drawCube(double size, int repeatTextures) {
@@ -43,4 +44,11 @@ void util::drawCube(double size, int repeatTextures) {
         glVertex3fv(&v[faces[i][3]][0]);
         glEnd();
     }
+}
+
+std::random_device rd; // obtain a random number from hardware
+std::mt19937 gen(rd()); // seed the generator
+int util::randomNumber(int l, int r) {
+    std::uniform_int_distribution<> distr(l, r);
+    return distr(gen);
 }

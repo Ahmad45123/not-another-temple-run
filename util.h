@@ -14,8 +14,14 @@ struct GroundInfo {
     double centerPos;
 };
 
+enum Gamemode {
+    FIRE,
+    ROCK
+};
+
 namespace util
 {
     void drawCube(double size, int repeatTextures = 1);
+    int randomNumber(int l, int r);
 };
 

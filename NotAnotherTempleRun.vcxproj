@@ -85,6 +85,8 @@
     <ClCompile Include="GLTexture.cpp" />
     <ClCompile Include="GroundBuilder.cpp" />
     <ClCompile Include="Model_3DS.cpp" />
+    <ClCompile Include="Obstacle.cpp" />
+    <ClCompile Include="ObstacleGenerator.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="util.cpp" />
     <ClCompile Include="Vector.cpp" />
@@ -94,6 +96,8 @@
     <ClInclude Include="GLTexture.h" />
     <ClInclude Include="GroundBuilder.h" />
     <ClInclude Include="Model_3DS.h" />
+    <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="ObstacleGenerator.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="util.h" />
     <ClInclude Include="Vector.h" />
