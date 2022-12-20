@@ -133,7 +133,7 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-Model_3DS::Model_3DS(double posX, double posY, double posZ, double scale, double rotX, double rotY, double rotZ)
+Model_3DS::Model_3DS(double posX, double posY, double posZ, double scaleX, double scaleY, double scaleZ, double rotX, double rotY, double rotZ)
 {
 	// Initialization
 	
@@ -166,7 +166,9 @@ Model_3DS::Model_3DS(double posX, double posY, double posZ, double scale, double
 
 	// Set the scale to one
 	//scale = 0.02f;
-	this->scale = scale;
+	scale.x = scaleX;
+	scale.y = scaleY;
+	scale.z = scaleZ;
 }
 
 Model_3DS::~Model_3DS()
@@ -290,7 +292,7 @@ void Model_3DS::Draw()
 		glRotatef(rot.y, 0.0f, 1.0f, 0.0f);
 		glRotatef(rot.z, 0.0f, 0.0f, 1.0f);
 
-		glScalef(scale, scale, scale);
+		glScalef(scale.x, scale.y, scale.z);
 
 		// Loop through the objects
 		for (int i = 0; i < numObjects; i++)

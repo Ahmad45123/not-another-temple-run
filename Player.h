@@ -21,10 +21,10 @@ class Player
 
     public:
 		
-	Model_3DS playerModel = Model_3DS(curX, curY, curZ, 0.02);
+	Model_3DS playerModel = Model_3DS(curX, curY, curZ, 0.02, 0.02, 0.02);
 	
     Player(std::vector<GroundInfo> *grounds) {
-		//playerModel.Load("models/player/csMan2.3ds");
+		playerModel.Load("models/player/csMan2.3ds");
         groundArray = grounds;
     }
 

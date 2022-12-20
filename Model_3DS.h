@@ -154,13 +154,13 @@ public:
 	Object *Objects;		// The array of objects in the model
 	Vector pos;				// The position to move the model to
 	Vector rot;				// The angles to rotate the model
-	float scale;			// The size you want the model scaled to
+	Vector scale;			// The size you want the model scaled to
 	bool lit;				// True: the model is lit
 	bool visible;			// True: the model gets rendered
 	void Load(char *name);	// Loads a model
 	void Draw();			// Draws the model
 	FILE *bin3ds;			// The binary 3ds file
-	Model_3DS(double posX, double posY, double posZ, double scale, double rotX = 0.0, double rotY = 0.0, double rotZ = 0.0);			// Constructor
+	Model_3DS(double posX, double posY, double posZ, double scaleX, double scaleY, double scaleZ, double rotX = 0.0, double rotY = 0.0, double rotZ = 0.0);			// Constructor
 	virtual ~Model_3DS();	// Destructor
 
 private:

@@ -167,7 +167,7 @@ void Player::tick() {
 }
 
 void Player::draw() {
-    //playerModel.Draw();
+    playerModel.Draw();
 	playerModel.rot.y = angle;
 	playerModel.pos.x = curX;
     playerModel.pos.z = curZ;
