@@ -1,6 +1,7 @@
 #include "util.h"
 #include <random>
 #include <glut.h>
+#include <Vector.h>
 
 void util::drawCube(double size, int repeatTextures) {
     static GLfloat n[6][3] =
@@ -51,4 +52,10 @@ std::mt19937 gen(rd()); // seed the generator
 int util::randomNumber(int l, int r) {
     std::uniform_int_distribution<> distr(l, r);
     return distr(gen);
+}
+
+double util::getDist(Vector pos1, Vector pos2) {
+    return sqrt((pos1.x - pos2.x) * (pos1.x - pos2.x) + 
+        (pos1.y - pos2.y) * (pos1.y - pos2.y) + 
+        (pos1.z - pos2.z) * (pos1.z - pos2.z));
 }

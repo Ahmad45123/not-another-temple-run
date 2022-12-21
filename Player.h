@@ -6,6 +6,7 @@
 
 class Player
 {
+    public:
     std::vector<GroundInfo>* groundArray;
 
     float angle = 180.0f;
@@ -19,7 +20,6 @@ class Player
 
     int curGround = 0;
 
-    public:
 		
 	Model_3DS playerModel = Model_3DS(curX, curY, curZ, 0.02, 0.02, 0.02);
 	

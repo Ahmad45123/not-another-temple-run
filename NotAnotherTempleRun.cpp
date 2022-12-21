@@ -101,7 +101,7 @@ void myInit(void)
 	camera = new Camera();
 	groundBuilder = new GroundBuilder();
 	player = new Player(&groundBuilder->grounds);
-	obstacleGen = new ObstacleGenerator(&groundBuilder->grounds, ROCK);
+	obstacleGen = new ObstacleGenerator(&groundBuilder->grounds, ROCK, player);
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_NORMALIZE);
@@ -232,6 +232,7 @@ void timerFunc(int _) {
 		player->tick();
 		if (obstacleGen->obstacles.size() == 0) obstacleGen->generateObstacles();
 	}
+	obstacleGen->tick();
 	glutTimerFunc(10, timerFunc, 0);
 	glutPostRedisplay();
 }

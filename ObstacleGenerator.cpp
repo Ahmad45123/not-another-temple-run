@@ -1,10 +1,12 @@
 #include "ObstacleGenerator.h"
 
 #include <vector>
+#include <iostream>
 
-ObstacleGenerator::ObstacleGenerator(std::vector<GroundInfo>* grounds, Gamemode mode) {
+ObstacleGenerator::ObstacleGenerator(std::vector<GroundInfo>* grounds, Gamemode mode, Player* pl) {
 	groundArray = grounds;
 	currentMode = mode;
+	player = pl;
 	obstacles = std::vector<Obstacle*>();
 }
 
@@ -80,5 +82,16 @@ void ObstacleGenerator::generateObstacles() {
 void ObstacleGenerator::drawObstacles() {
 	for (auto obs : obstacles) {
 		obs->draw();
+	}
+}
+
+void ObstacleGenerator::tick() {
+	for (auto& obs : obstacles) {
+		double dist = 0;
+		
+		if (util::getDist(obs->position, Vector(player->curX, player->curY, player->curZ)) <= 0.05) {
+			std::cout << util::getDist(obs->position, Vector(player->curX, player->curY, player->curZ)) << std::endl;
+			player->STEP_SIZE = 0;
+		}
 	}
 }
