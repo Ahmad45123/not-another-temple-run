@@ -11,7 +11,7 @@ ObstacleGenerator::ObstacleGenerator(std::vector<GroundInfo>* grounds, Gamemode 
 }
 
 void ObstacleGenerator::generateObstacles() {
-	for (int i = 0; i < groundArray->size(); i++) {
+	for (int i = 1; i < groundArray->size(); i++) {
 		auto ground = groundArray->at(i);
 
 		double x = -1, z = 0, y = 0.015, rot = 0;
@@ -80,8 +80,8 @@ void ObstacleGenerator::generateObstacles() {
 }
 
 void ObstacleGenerator::drawObstacles() {
-	for (int i = 1; i < obstacles.size(); i++) {
-		obstacles[i]->draw();
+	for (auto obs : obstacles) {
+		obs->draw();
 	}
 }
 

@@ -113,15 +113,8 @@ void Player::keyDown(char c) {
         gotoNextGround();
     }
 
-    if (!keys['m'] && c == 'm') {
-        leanRight();
-    }
-
-    if (!keys['n'] && c == 'n') {
-        leanLeft();
-    }
-
     if (!keys[' '] && c == ' ') {
+        util::playSound("sounds/jump.wav");
         goingUp = true;
     }
 
@@ -130,6 +123,22 @@ void Player::keyDown(char c) {
 
 void Player::keyUp(char c) {
     keys[c] = false;
+}
+
+void Player::specialKeyDown(int c) {
+    if (!specialKeys[GLUT_KEY_RIGHT] && c == GLUT_KEY_RIGHT) {
+        leanRight();
+    }
+
+    if (!specialKeys[GLUT_KEY_LEFT] && c == GLUT_KEY_LEFT) {
+        leanLeft();
+    }
+
+    specialKeys[c] = true;
+}
+
+void Player::specialKeyUp(int c) {
+    specialKeys[c] = false;
 }
 
 void Player::tick() {

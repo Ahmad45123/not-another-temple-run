@@ -1,6 +1,10 @@
 #pragma once
 
+#include <random>
+#include <Windows.h>
 #include <Vector.h>
+#include <string>
+#include <glut.h>
 
 enum Direction {
     POSITIVE_X,
@@ -26,5 +30,6 @@ namespace util
     void drawCube(double size, int repeatTextures = 1);
     int randomNumber(int l, int r);
     double getDist(Vector pos1, Vector pos2);
+    void playSound(std::string path);
 };
 

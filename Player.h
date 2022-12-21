@@ -17,6 +17,7 @@ class Player
     double LEAN_STEP_SIZE = 0.05;
 
     bool keys[256] = {};
+    bool specialKeys[256] = {};
 
     int curGround = 0;
     
@@ -44,6 +45,8 @@ class Player
 
     void keyDown(char c);
     void keyUp(char c);
+    void specialKeyDown(int c);
+    void specialKeyUp(int c);
 
     void tick();
     void draw();

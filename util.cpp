@@ -1,7 +1,4 @@
 #include "util.h"
-#include <random>
-#include <glut.h>
-#include <Vector.h>
 
 void util::drawCube(double size, int repeatTextures) {
     static GLfloat n[6][3] =
@@ -57,4 +54,8 @@ int util::randomNumber(int l, int r) {
 double util::getDist(Vector pos1, Vector pos2) {
     return sqrt((pos1.x - pos2.x) * (pos1.x - pos2.x) +  
         (pos1.z - pos2.z) * (pos1.z - pos2.z));
+}
+
+void util::playSound(std::string path) {
+    PlaySound(TEXT(path.c_str()), NULL, SND_FILENAME | SND_ASYNC);
 }

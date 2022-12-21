@@ -174,23 +174,21 @@ void myDisplay(void)
 //=======================================================================
 // Keyboard Function
 //=======================================================================
-void keyDown(unsigned char button, int x, int y)
-{
+void keyDown(unsigned char button, int x, int y) {
 	camera->keyDown(button);
 	player->keyDown(button);
 }
-void keyUp(unsigned char button, int x, int y)
-{
+void keyUp(unsigned char button, int x, int y) {
 	camera->keyUp(button);
 	player->keyUp(button);
 }
-void specialKeyDown(int button, int x, int y)
-{
+void specialKeyDown(int button, int x, int y) {
 	camera->specialKeyDown(button);
+	player->specialKeyDown(button);
 }
-void specialKeyUp(int button, int x, int y)
-{
+void specialKeyUp(int button, int x, int y) {
 	camera->specialKeyUp(button);
+	player->specialKeyUp(button);
 }
 
 //=======================================================================
