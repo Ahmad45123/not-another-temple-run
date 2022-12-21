@@ -55,7 +55,6 @@ int util::randomNumber(int l, int r) {
 }
 
 double util::getDist(Vector pos1, Vector pos2) {
-    return sqrt((pos1.x - pos2.x) * (pos1.x - pos2.x) + 
-        (pos1.y - pos2.y) * (pos1.y - pos2.y) + 
+    return sqrt((pos1.x - pos2.x) * (pos1.x - pos2.x) +  
         (pos1.z - pos2.z) * (pos1.z - pos2.z));
 }

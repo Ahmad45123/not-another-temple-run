@@ -19,6 +19,11 @@ class Player
     bool keys[256] = {};
 
     int curGround = 0;
+    
+    bool goingUp = false;
+    double curHeight = 0;
+    double maxHeight = 0.07;
+    double curJumpStep = 0.0001;
 
 		
 	Model_3DS playerModel = Model_3DS(curX, curY, curZ, 0.02, 0.02, 0.02);

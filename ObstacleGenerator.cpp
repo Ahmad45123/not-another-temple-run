@@ -90,8 +90,10 @@ void ObstacleGenerator::tick() {
 		double dist = 0;
 		
 		if (util::getDist(obs->position, Vector(player->curX, player->curY, player->curZ)) <= 0.05) {
-			std::cout << util::getDist(obs->position, Vector(player->curX, player->curY, player->curZ)) << std::endl;
-			player->STEP_SIZE = 0;
+			if (abs(obs->position.y - player->curY - player->curHeight) <= 0.0055) {
+				player->STEP_SIZE = 0;
+				player->curJumpStep = 0;
+			}
 		}
 	}
 }

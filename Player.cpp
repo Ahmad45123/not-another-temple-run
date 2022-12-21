@@ -121,6 +121,10 @@ void Player::keyDown(char c) {
         leanLeft();
     }
 
+    if (!keys[' '] && c == ' ') {
+        goingUp = true;
+    }
+
     keys[c] = true;
 }
 
@@ -164,6 +168,20 @@ void Player::tick() {
         }
         break;
     }
+
+    // Handle Jump
+    if (goingUp) {
+        curJumpStep *= 1.15;
+        curHeight += curJumpStep;
+        if (curHeight >= maxHeight) {
+            goingUp = false;
+        }
+    }
+    else if (curHeight > 0) {
+        curHeight -= curJumpStep;
+        curJumpStep /= 1.15;
+        if (curHeight <= 0) curHeight = 0;
+    }
 }
 
 void Player::draw() {
@@ -171,4 +189,5 @@ void Player::draw() {
 	playerModel.rot.y = angle;
 	playerModel.pos.x = curX;
     playerModel.pos.z = curZ;
+    playerModel.pos.y = curY + curHeight;
 }
