@@ -88,6 +88,8 @@
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="ObstacleGenerator.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerCamera.cpp" />
+    <ClCompile Include="ThirdPersonCamera.cpp" />
     <ClCompile Include="util.cpp" />
     <ClCompile Include="Vector.cpp" />
   </ItemGroup>
@@ -99,6 +101,8 @@
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="ObstacleGenerator.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerCamera.h" />
+    <ClInclude Include="ThirdPersonCamera.h" />
     <ClInclude Include="util.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>

@@ -80,8 +80,8 @@ void ObstacleGenerator::generateObstacles() {
 }
 
 void ObstacleGenerator::drawObstacles() {
-	for (auto obs : obstacles) {
-		obs->draw();
+	for (int i = 1; i < obstacles.size(); i++) {
+		obstacles[i]->draw();
 	}
 }
 

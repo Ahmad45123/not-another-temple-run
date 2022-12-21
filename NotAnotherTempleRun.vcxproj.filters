@@ -40,6 +40,8 @@
     <ClCompile Include="ObstacleGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerCamera.cpp" />
+    <ClCompile Include="ThirdPersonCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLTexture.h">
@@ -69,5 +71,7 @@
     <ClInclude Include="ObstacleGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerCamera.h" />
+    <ClInclude Include="ThirdPersonCamera.h" />
   </ItemGroup>
 </Project>

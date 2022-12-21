@@ -10,6 +10,8 @@
 
 #include <iostream>
 #include <glut.h>
+#include <PlayerCamera.h>
+#include <ThirdPersonCamera.h>
 
 using namespace std;
 
@@ -27,6 +29,8 @@ GLdouble zFar = 1000;
 
 // Textures
 Camera *camera;
+PlayerCamera* plCamera;
+ThirdPersonCamera* tpCamera;
 GroundBuilder* groundBuilder;
 Player* player;
 ObstacleGenerator* obstacleGen;
@@ -102,6 +106,8 @@ void myInit(void)
 	groundBuilder = new GroundBuilder();
 	player = new Player(&groundBuilder->grounds);
 	obstacleGen = new ObstacleGenerator(&groundBuilder->grounds, ROCK, player);
+	plCamera = new PlayerCamera(player);
+	tpCamera = new ThirdPersonCamera(player);
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_NORMALIZE);
@@ -117,7 +123,7 @@ void myDisplay(void)
 	// Camera
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	camera->draw();
+	tpCamera->draw();
 
 	GLfloat lightIntensity[] = { 0.7, 0.7, 0.7, 1.0f };
 	GLfloat lightPosition[] = { 0.0f, 100.0f, 0.0f, 0.0f };
