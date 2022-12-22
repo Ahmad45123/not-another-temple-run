@@ -86,13 +86,14 @@ void ObstacleGenerator::drawObstacles() {
 }
 
 void ObstacleGenerator::tick() {
-	for (auto& obs : obstacles) {
-		double dist = 0;
-		
+	for (auto& obs : obstacles) {		
 		if (util::getDist(obs->position, Vector(player->curX, player->curY, player->curZ)) <= 0.05) {
 			if (abs(obs->position.y - player->curY - player->curHeight) <= 0.0055) {
-				player->STEP_SIZE = 0;
-				player->curJumpStep = 0;
+				if (player->STEP_SIZE != 0) { // TODO: change this
+					util::playSound("sounds/death.wav");
+					player->STEP_SIZE = 0;
+					player->curJumpStep = 0;
+				}
 			}
 		}
 	}
