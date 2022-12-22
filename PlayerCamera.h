@@ -1,6 +1,7 @@
 #pragma once
 #include <Player.h>
-class PlayerCamera
+#include "Camera.h"
+class PlayerCamera : public Camera
 {
 public:
 	Player* player;
@@ -9,7 +10,7 @@ public:
 		this->player = player;
 	}
 
-	void draw() {
+	virtual void draw() {
 		double centerX = player->curX;
 		double centerY = player->curY;
 		double centerZ = player->curZ;

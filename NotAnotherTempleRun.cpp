@@ -3,13 +3,13 @@
 #include "GLTexture.h"
 
 #include "Vector.h"
-#include "Camera.h"
 #include "GroundBuilder.h"
 #include "Player.h"
 #include "ObstacleGenerator.h"
 
 #include <iostream>
 #include <glut.h>
+#include <FreeCamera.h>
 #include <PlayerCamera.h>
 #include <ThirdPersonCamera.h>
 
@@ -27,10 +27,10 @@ GLdouble aspectRatio = (GLdouble)WIDTH / (GLdouble)HEIGHT;
 GLdouble zNear = 0.01;
 GLdouble zFar = 1000;
 
-// Textures
+// Cameras
 Camera *camera;
-PlayerCamera* plCamera;
-ThirdPersonCamera* tpCamera;
+
+// Objects
 GroundBuilder* groundBuilder;
 Player* player;
 ObstacleGenerator* obstacleGen;
@@ -102,12 +102,10 @@ void myInit(void)
 	InitLightSource();
 	InitMaterial();
 
-	camera = new Camera();
 	groundBuilder = new GroundBuilder();
 	player = new Player(&groundBuilder->grounds);
 	obstacleGen = new ObstacleGenerator(&groundBuilder->grounds, ROCK, player);
-	plCamera = new PlayerCamera(player);
-	tpCamera = new ThirdPersonCamera(player);
+	camera = new ThirdPersonCamera(player);
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_NORMALIZE);
@@ -123,7 +121,7 @@ void myDisplay(void)
 	// Camera
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	tpCamera->draw();
+	camera->draw();
 
 	GLfloat lightIntensity[] = { 0.7, 0.7, 0.7, 1.0f };
 	GLfloat lightPosition[] = { 0.0f, 100.0f, 0.0f, 0.0f };
@@ -175,6 +173,16 @@ void myDisplay(void)
 // Keyboard Function
 //=======================================================================
 void keyDown(unsigned char button, int x, int y) {
+	if (button == '1') {
+		camera = new ThirdPersonCamera(player);
+	}
+	else if (button == '2') {
+		camera = new PlayerCamera(player);
+	}
+	else if (button == '3') {
+		camera = new FreeCamera();
+	}
+
 	camera->keyDown(button);
 	player->keyDown(button);
 }

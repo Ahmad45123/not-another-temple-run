@@ -81,7 +81,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="NotAnotherTempleRun.cpp" />
-    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="FreeCamera.cpp" />
     <ClCompile Include="GLTexture.cpp" />
     <ClCompile Include="GroundBuilder.cpp" />
     <ClCompile Include="Model_3DS.cpp" />
@@ -95,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="FreeCamera.h" />
     <ClInclude Include="GLTexture.h" />
     <ClInclude Include="GroundBuilder.h" />
     <ClInclude Include="Model_3DS.h" />
