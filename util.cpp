@@ -1,6 +1,7 @@
 #include "util.h"
 
 #include <string>
+#include <conio.h>
 #include <Audio.h>
 
 void util::drawCube(double size, int repeatTextures) {
@@ -64,4 +65,16 @@ extern std::string basePath;
 void util::playSound(std::string path, float vol, bool loop) {
     audioManager.BasePath = basePath;
     audioManager.Play(path, vol, loop);
+}
+
+void util::color(int color) {
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+}
+
+void util::changeCursor(int x, int y) {
+    COORD coordinate;
+
+	coordinate.X = x;
+	coordinate.Y = y;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coordinate);
 }
