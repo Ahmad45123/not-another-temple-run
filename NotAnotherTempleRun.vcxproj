@@ -80,6 +80,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Audio.cpp" />
     <ClCompile Include="NotAnotherTempleRun.cpp" />
     <ClCompile Include="FreeCamera.cpp" />
     <ClCompile Include="GLTexture.cpp" />
@@ -94,6 +95,7 @@
     <ClCompile Include="Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Audio.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="FreeCamera.h" />
     <ClInclude Include="GLTexture.h" />

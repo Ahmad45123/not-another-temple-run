@@ -21,6 +21,8 @@ int HEIGHT = 720;
 GLuint tex;
 char title[] = "Not Another Temple Run";
 
+std::string basePath;
+
 // 3D Projection Optionsk
 GLdouble fovy = 45.0;
 GLdouble aspectRatio = (GLdouble)WIDTH / (GLdouble)HEIGHT;
@@ -276,6 +278,10 @@ void main(int argc, char** argv)
 
 	LoadAssets();
 	myInit();
+	
+	string tmp = argv[0];
+	tmp = tmp.substr(0, tmp.find_last_of("\\/"));
+	basePath = tmp.substr(0, tmp.find_last_of("\\/"));
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);

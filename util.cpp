@@ -1,5 +1,8 @@
 #include "util.h"
 
+#include <string>
+#include <Audio.h>
+
 void util::drawCube(double size, int repeatTextures) {
     static GLfloat n[6][3] =
     {
@@ -56,6 +59,9 @@ double util::getDist(Vector pos1, Vector pos2) {
         (pos1.z - pos2.z) * (pos1.z - pos2.z));
 }
 
+Audio audioManager;
+extern std::string basePath;
 void util::playSound(std::string path) {
-    PlaySound(TEXT(path.c_str()), NULL, SND_FILENAME | SND_ASYNC);
+    audioManager.BasePath = basePath;
+    audioManager.Play(path);
 }
