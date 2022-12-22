@@ -22,6 +22,7 @@ class Player
     int curGround = 0;
     
     bool goingUp = false;
+    bool isFalling = false;
     double curHeight = 0;
     double maxHeight = 0.07;
     double curJumpStep = 0.0001;
@@ -42,6 +43,7 @@ class Player
     void leanLeft();
 
     void gotoNextGround();
+    void fall();
 
     void keyDown(char c);
     void keyUp(char c);

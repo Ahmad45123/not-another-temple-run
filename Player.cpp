@@ -152,28 +152,28 @@ void Player::tick() {
         curX -= STEP_SIZE;
         if (nxtGroundDir == curDirection && curX <= curGroundEnd) gotoNextGround();
         if (nxtGroundDir != curDirection && curX < curGroundEnd) {
-            STEP_SIZE = 0;
+            fall();
         }
         break;
     case POSITIVE_X:
         curX += STEP_SIZE;
         if (nxtGroundDir == curDirection && curX >= curGroundEnd) gotoNextGround();
         if (nxtGroundDir != curDirection && curX > curGroundEnd) {
-            STEP_SIZE = 0;
+            fall();
         }
         break;
     case NEGATIVE_Z:
         curZ -= STEP_SIZE;
         if (nxtGroundDir == curDirection && curZ <= curGroundEnd) gotoNextGround();
         if (nxtGroundDir != curDirection && curZ < curGroundEnd) {
-            STEP_SIZE = 0;
+            fall();
         }
         break;
     case POSITIVE_Z:
         curZ += STEP_SIZE;
         if (nxtGroundDir == curDirection && curZ >= curGroundEnd) gotoNextGround();
         if (nxtGroundDir != curDirection && curZ > curGroundEnd) {
-            STEP_SIZE = 0;
+            fall();
         }
         break;
     }
@@ -191,6 +191,11 @@ void Player::tick() {
         curJumpStep /= 1.15;
         if (curHeight <= 0) curHeight = 0;
     }
+    
+    if (isFalling) {
+		curHeight -= curJumpStep;
+        curJumpStep *= 1.15;
+    }
 }
 
 void Player::draw() {
@@ -199,4 +204,10 @@ void Player::draw() {
 	playerModel.pos.x = curX;
     playerModel.pos.z = curZ;
     playerModel.pos.y = curY + curHeight;
+}
+
+void Player::fall() {
+    if (isFalling) return;
+    isFalling = true;
+    util::playSound("sounds/fall.wav");
 }
