@@ -30,6 +30,6 @@ namespace util
     void drawCube(double size, int repeatTextures = 1);
     int randomNumber(int l, int r);
     double getDist(Vector pos1, Vector pos2);
-    void playSound(std::string path);
+    void playSound(std::string path, float vol = 1, bool loop = false);
 };
 

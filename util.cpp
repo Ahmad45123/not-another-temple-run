@@ -61,7 +61,7 @@ double util::getDist(Vector pos1, Vector pos2) {
 
 Audio audioManager;
 extern std::string basePath;
-void util::playSound(std::string path) {
+void util::playSound(std::string path, float vol, bool loop) {
     audioManager.BasePath = basePath;
-    audioManager.Play(path);
+    audioManager.Play(path, vol, loop);
 }
