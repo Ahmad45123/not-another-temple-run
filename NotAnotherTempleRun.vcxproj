@@ -81,6 +81,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Audio.cpp" />
+    <ClCompile Include="Coin.cpp" />
+    <ClCompile Include="CoinsGenerator.cpp" />
     <ClCompile Include="NotAnotherTempleRun.cpp" />
     <ClCompile Include="FreeCamera.cpp" />
     <ClCompile Include="GLTexture.cpp" />
@@ -90,6 +92,8 @@
     <ClCompile Include="ObstacleGenerator.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerCamera.cpp" />
+    <ClCompile Include="Shield.cpp" />
+    <ClCompile Include="ShieldGenerator.cpp" />
     <ClCompile Include="ThirdPersonCamera.cpp" />
     <ClCompile Include="util.cpp" />
     <ClCompile Include="Vector.cpp" />
@@ -97,6 +101,8 @@
   <ItemGroup>
     <ClInclude Include="Audio.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Coin.h" />
+    <ClInclude Include="CoinsGenerator.h" />
     <ClInclude Include="FreeCamera.h" />
     <ClInclude Include="GLTexture.h" />
     <ClInclude Include="GroundBuilder.h" />
@@ -105,6 +111,8 @@
     <ClInclude Include="ObstacleGenerator.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerCamera.h" />
+    <ClInclude Include="Shield.h" />
+    <ClInclude Include="ShieldGenerator.h" />
     <ClInclude Include="ThirdPersonCamera.h" />
     <ClInclude Include="util.h" />
     <ClInclude Include="Vector.h" />

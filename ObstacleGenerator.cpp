@@ -90,9 +90,12 @@ void ObstacleGenerator::tick() {
 		if (util::getDist(obs->position, Vector(player->curX, player->curY, player->curZ)) <= 0.05) {
 			if (abs(obs->position.y - player->curY - player->curHeight) <= 0.0055) {
 				if (player->STEP_SIZE != 0) { // TODO: change this
-					util::playSound("sounds/death.wav");
-					player->STEP_SIZE = 0;
-					player->curJumpStep = 0;
+					if(!player->gotShield) {
+						util::playSound("sounds/death.wav");
+						player->STEP_SIZE = 0;
+						player->curJumpStep = 0;
+				}
+
 				}
 			}
 		}

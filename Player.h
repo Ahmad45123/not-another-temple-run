@@ -27,6 +27,8 @@ class Player
     double maxHeight = 0.07;
     double curJumpStep = 0.0001;
 
+    int coins = 0;
+    bool gotShield = false;
 		
 	Model_3DS playerModel = Model_3DS(curX, curY, curZ, 0.02, 0.02, 0.02);
 	
