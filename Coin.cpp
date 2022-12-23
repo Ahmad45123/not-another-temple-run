@@ -15,8 +15,11 @@ Coin::Coin(Vector pos, Vector rot, Gamemode type) {
 		coinModel->Load("models/coin/Coin.3ds");
 }
 
-void Coin::draw() {
-	if(!taken)
+void Coin::draw(int rotAng) {
+	if (!taken) {
+		coinModel->rot.y = rotAng;
 		coinModel->Draw();
+	}
+		
 
 }

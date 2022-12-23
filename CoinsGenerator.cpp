@@ -74,11 +74,12 @@ void CoinsGenerator::generateCoins() {
 
 void CoinsGenerator::drawCoins() {
 	for (auto obs : coins) {
-		obs->draw();
+		obs->draw(rotAng);
 	}
 }
 
 void CoinsGenerator::tick() {
+	rotAng += 1;
 	for (auto& obs : coins) {
 		if (util::getDist(obs->position, Vector(player->curX, player->curY, player->curZ)) <= 0.05) {
 			if (abs(( obs->position.y - 0.03 ) - player->curY - player->curHeight) <= 0.0055) {

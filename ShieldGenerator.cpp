@@ -92,7 +92,7 @@ void ShieldGenerator::generateShield() {
 
 void ShieldGenerator::drawShield() {
 	for (auto obs : shields) {
-		obs->draw();
+		obs->draw(rotAng);
 	}
 }
 
@@ -111,6 +111,7 @@ void ShieldGenerator::tick() {
 
 	handleShieldExpiry();
 
+	rotAng += 1;
 	for (auto& obs : shields) {
 		if (util::getDist(obs->position, Vector(player->curX, player->curY, player->curZ)) <= 0.05) {
 			if (abs((obs->position.y - 0.03) - player->curY - player->curHeight) <= 0.0055) {

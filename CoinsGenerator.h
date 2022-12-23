@@ -14,7 +14,7 @@ public:
 	std::vector<Coin*> coins;
 	Gamemode currentMode;
 	Player* player;
-
+	int rotAng = 0;
 	CoinsGenerator(std::vector<GroundInfo>* grounds, Gamemode mode, Player* pl);
 
 	void generateCoins();

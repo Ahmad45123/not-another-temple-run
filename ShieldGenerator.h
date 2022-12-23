@@ -17,6 +17,7 @@ public:
 	double originalShieldTime = 5; // to reset the shield time after it ends or when a player takes a shield
 	double shieldRemainingTime = originalShieldTime; //5 secs
 	ShieldGenerator(std::vector<GroundInfo>* grounds, Gamemode mode, Player* pl);
+	int rotAng = 0;
 
 	void generateShield();
 	void drawShield();

@@ -14,6 +14,6 @@ public:
 
 	class Shield(Vector pos, Vector rot, Gamemode type);
 
-	void draw();
+	void draw(int rotAng);
 };
 

@@ -11,11 +11,11 @@ public:
 	Vector rotation;
 	Model_3DS* coinModel;
 	bool taken;
-	int rotAng = 30;
+	//int rotAng = 30;
 
 	class Coin(Vector pos, Vector rot, Gamemode type);
 
 	void timerFunc(int v);
-	void draw();
+	void draw(int rotAng);
 };
 
