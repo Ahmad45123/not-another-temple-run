@@ -6,6 +6,11 @@
 #include "GroundBuilder.h"
 #include "Player.h"
 #include "ObstacleGenerator.h"
+#include "CoinsGenerator.h"
+#include "ShieldGenerator.h"
+
+
+
 
 #include <iostream>
 #include <conio.h>
@@ -38,6 +43,10 @@ Camera *camera;
 GroundBuilder* groundBuilder;
 Player* player;
 ObstacleGenerator* obstacleGen;
+CoinsGenerator* coinsGen;
+ShieldGenerator* shieldGen;
+
+
 
 //=======================================================================
 // Lighting Configuration Function
@@ -108,7 +117,11 @@ void myInit(void)
 
 	groundBuilder = new GroundBuilder();
 	player = new Player(&groundBuilder->grounds);
+  
 	obstacleGen = new ObstacleGenerator(&groundBuilder->grounds, gameMode, player);
+	coinsGen = new CoinsGenerator(&groundBuilder->grounds, gameMode, player);
+	shieldGen = new ShieldGenerator(&groundBuilder->grounds, gameMode, player);
+
 	camera = new ThirdPersonCamera(player);
 
 	glEnable(GL_DEPTH_TEST);
@@ -152,7 +165,12 @@ void myDisplay(void)
 	groundBuilder->drawForward();
 	groundBuilder->isFillGrounds = false;
 
+	coinsGen->drawCoins();
 	obstacleGen->drawObstacles();
+	shieldGen->drawShield();
+
+	//dispaly the coins
+	coinsGen->printCoins();
 
 	//sky box
 	glPushMatrix();
@@ -293,8 +311,12 @@ void timerFunc(int _) {
 	if (groundBuilder->grounds.size() > 0) {
 		player->tick();
 		if (obstacleGen->obstacles.size() == 0) obstacleGen->generateObstacles();
+		if (coinsGen->coins.size() == 0) coinsGen->generateCoins();
+		if (shieldGen->shields.size() == 0) shieldGen->generateShield();
 	}
 	obstacleGen->tick();
+	coinsGen->tick();
+	shieldGen->tick();
 	glutTimerFunc(10, timerFunc, 0);
 	glutPostRedisplay();
 }
