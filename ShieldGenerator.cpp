@@ -110,7 +110,11 @@ void ShieldGenerator::handleShieldExpiry() {
 	}
 }
 void ShieldGenerator::tick() {
-
+	if (player->curGround == 0) {
+		for (auto& shield : shields) {
+			shield->taken = false;
+		}
+	}
 	handleShieldExpiry();
 
 	rotAng += 1;

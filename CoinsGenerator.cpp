@@ -79,6 +79,11 @@ void CoinsGenerator::drawCoins() {
 }
 
 void CoinsGenerator::tick() {
+	if (player->curGround == 0) {
+		for (auto& coin : coins) {
+			coin->taken = false;
+		}
+	}
 	rotAng += 1;
 	for (auto& obs : coins) {
 		if (util::getDist(obs->position, Vector(player->curX, player->curY, player->curZ)) <= 0.05) {

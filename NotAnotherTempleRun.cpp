@@ -29,6 +29,7 @@ char title[] = "Not Another Temple Run";
 Gamemode gameMode;
 
 std::string basePath;
+int gameTime = 0;
 
 // 3D Projection Optionsk
 GLdouble fovy = 45.0;
@@ -143,7 +144,7 @@ void drawString(string str, float x, float z) {
 void myDisplay(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
+
 	// Camera
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -153,7 +154,7 @@ void myDisplay(void)
 	GLfloat lightPosition[] = { 0.0f, 100.0f, 0.0f, 0.0f };
 	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, lightIntensity);
-	
+
 	// Draw Ground
 	groundBuilder->reset();
 	groundBuilder->drawForward();
@@ -200,7 +201,12 @@ void myDisplay(void)
 	player->draw();
 
 	glPushMatrix();
-	drawString("Coins Collected " + to_string(player->coins), player->playerModel.pos.x - 0.02, player->playerModel.pos.z);
+	if (gameMode == ROCK) {
+		drawString("Coins Collected " + to_string(player->coins), player->playerModel.pos.x - 0.02, player->playerModel.pos.z);
+	}
+	else if (gameMode == FIRE) {
+		drawString("Score " + to_string(gameTime), player->playerModel.pos.x - 0.02, player->playerModel.pos.z);
+	}
 	glPopMatrix();
 
 	glutSwapBuffers();
@@ -336,6 +342,7 @@ void timerFunc(int _) {
 	else if (gameMode == FIRE) {
 		shieldGen->tick();
 	}
+	gameTime++;
 	glutTimerFunc(10, timerFunc, 0);
 	glutPostRedisplay();
 }
