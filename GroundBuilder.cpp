@@ -18,7 +18,7 @@ void GroundBuilder::drawBase() {
 	glBindTexture(GL_TEXTURE_2D, grndTexture.texture[0]);	// Bind the ground texture
 
 	glScaled(0.2, 0.02, 1.5);
-	util::drawCube(1, 10);
+	util::drawCube(1, 2);
 
 	glEnable(GL_LIGHTING);	// Enable lighting again for other entites coming throung the pipeline.
 
