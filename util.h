@@ -31,5 +31,7 @@ namespace util
     int randomNumber(int l, int r);
     double getDist(Vector pos1, Vector pos2);
     void playSound(std::string path, float vol = 1, bool loop = false);
+    void color(int color);
+    void changeCursor(int x, int y);
 };
 

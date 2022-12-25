@@ -30,10 +30,10 @@ class Player
     int coins = 0;
     bool gotShield = false;
 		
-	Model_3DS playerModel = Model_3DS(curX, curY, curZ, 0.02, 0.02, 0.02);
+	Model_3DS playerModel = Model_3DS(curX, curY, curZ, 0.0005, 0.0005, 0.0005, 270, 0, 0);
 	
     Player(std::vector<GroundInfo> *grounds) {
-		playerModel.Load("models/player/csMan2.3ds");
+		playerModel.Load("models/player/Male1.3ds");
         groundArray = grounds;
     }
 

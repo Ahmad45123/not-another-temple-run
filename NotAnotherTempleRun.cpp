@@ -13,6 +13,7 @@
 
 
 #include <iostream>
+#include <conio.h>
 #include <glut.h>
 #include <FreeCamera.h>
 #include <PlayerCamera.h>
@@ -25,6 +26,7 @@ int HEIGHT = 720;
 
 GLuint tex;
 char title[] = "Not Another Temple Run";
+Gamemode gameMode;
 
 std::string basePath;
 
@@ -115,12 +117,11 @@ void myInit(void)
 
 	groundBuilder = new GroundBuilder();
 	player = new Player(&groundBuilder->grounds);
-	obstacleGen = new ObstacleGenerator(&groundBuilder->grounds, ROCK, player);
-	coinsGen = new CoinsGenerator(&groundBuilder->grounds, ROCK, player);
-	shieldGen = new ShieldGenerator(&groundBuilder->grounds, ROCK, player);
+  
+	obstacleGen = new ObstacleGenerator(&groundBuilder->grounds, gameMode, player);
+	coinsGen = new CoinsGenerator(&groundBuilder->grounds, gameMode, player);
+	shieldGen = new ShieldGenerator(&groundBuilder->grounds, gameMode, player);
 
-
-	
 	camera = new ThirdPersonCamera(player);
 
 	glEnable(GL_DEPTH_TEST);
@@ -143,7 +144,7 @@ void myDisplay(void)
 	GLfloat lightPosition[] = { 0.0f, 100.0f, 0.0f, 0.0f };
 	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, lightIntensity);
-
+	
 	// Draw Ground
 	groundBuilder->reset();
 	groundBuilder->drawForward();
@@ -188,6 +189,52 @@ void myDisplay(void)
 	// Draw player
 	player->draw();
 	glutSwapBuffers();
+}
+
+void initMainMenu() {
+	int set[] = { 7, 7};
+	int counter = 2;
+	char key;
+	while (true) {
+		util::changeCursor(60, 5);
+		util::color(32);
+		cout << "Welcome to Not Another Temple Run" << endl;
+
+		util::changeCursor(70, 15);
+		util::color(set[0]);
+		cout << "Arcade Mode" << endl;
+
+		util::changeCursor(70, 25);
+		util::color(set[1]);
+		cout << "Survival Mode" << endl;
+
+		key = _getch();
+
+		if (key == 72 && counter == 2) {
+			counter--;
+		}
+		if (key == 80 && counter == 1) {
+			counter++;
+		}
+		if (key == '\r') {
+			if (counter == 1) {
+				gameMode = ROCK;
+				break;
+			}
+			else if (counter == 2) {
+				gameMode = FIRE;
+				break;
+			}
+		}
+		set[0] = 7;
+		set[1] = 7;
+		if (counter == 1) {
+			set[0] = 12;
+		}
+		if (counter == 2) {
+			set[1] = 12;
+		}
+	}
 }
 
 //=======================================================================
@@ -298,6 +345,8 @@ void main(int argc, char** argv)
 	glutTimerFunc(0, timerFunc, 0);
 
 	glutReshapeFunc(myReshape);
+
+	initMainMenu();
 
 	LoadAssets();
 	myInit();
