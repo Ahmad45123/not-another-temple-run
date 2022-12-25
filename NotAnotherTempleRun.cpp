@@ -128,6 +128,15 @@ void myInit(void)
 	glEnable(GL_NORMALIZE);
 }
 
+void drawString(string str, float x, float z) {
+	glPushMatrix();
+	glRasterPos3f(x, 0.14, z);
+	for (size_t i = 0; i < str.size(); ++i) {
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, (int)str[i]);
+	}
+	glPopMatrix();
+}
+
 //=======================================================================
 // Display Function
 //=======================================================================
@@ -165,12 +174,13 @@ void myDisplay(void)
 	groundBuilder->drawForward();
 	groundBuilder->isFillGrounds = false;
 
-	coinsGen->drawCoins();
+	if (gameMode == ROCK) {
+		coinsGen->drawCoins();
+	}
+	else if (gameMode == FIRE) {
+		shieldGen->drawShield();
+	}
 	obstacleGen->drawObstacles();
-	shieldGen->drawShield();
-
-	//dispaly the coins
-	coinsGen->printCoins();
 
 	//sky box
 	glPushMatrix();
@@ -188,6 +198,11 @@ void myDisplay(void)
 
 	// Draw player
 	player->draw();
+
+	glPushMatrix();
+	drawString("Coins Collected " + to_string(player->coins), player->playerModel.pos.x - 0.02, player->playerModel.pos.z);
+	glPopMatrix();
+
 	glutSwapBuffers();
 }
 
@@ -275,18 +290,18 @@ void myReshape(int w, int h)
 	if (h == 0) {
 		h = 1;
 	}
-
+	
 	WIDTH = w;
 	HEIGHT = h;
-
+	
 	// set the drawable region of the window
 	glViewport(0, 0, w, h);
-
+	
 	// set up the projection matrix 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(fovy, (GLdouble)WIDTH / (GLdouble)HEIGHT, zNear, zFar);
-
+	
 	// go back to modelview matrix so we can move the objects about
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -311,12 +326,16 @@ void timerFunc(int _) {
 	if (groundBuilder->grounds.size() > 0) {
 		player->tick();
 		if (obstacleGen->obstacles.size() == 0) obstacleGen->generateObstacles();
-		if (coinsGen->coins.size() == 0) coinsGen->generateCoins();
-		if (shieldGen->shields.size() == 0) shieldGen->generateShield();
+		if (coinsGen->coins.size() == 0 && gameMode == ROCK) coinsGen->generateCoins();
+		if (shieldGen->shields.size() == 0 && gameMode == FIRE) shieldGen->generateShield();
 	}
 	obstacleGen->tick();
-	coinsGen->tick();
-	shieldGen->tick();
+	if (gameMode == ROCK) {
+		coinsGen->tick();
+	}
+	else if (gameMode == FIRE) {
+		shieldGen->tick();
+	}
 	glutTimerFunc(10, timerFunc, 0);
 	glutPostRedisplay();
 }
@@ -354,7 +373,7 @@ void main(int argc, char** argv)
 	string tmp = argv[0];
 	tmp = tmp.substr(0, tmp.find_last_of("\\/"));
 	basePath = tmp.substr(0, tmp.find_last_of("\\/"));
-	util::playSound("sounds/music.wav", 2, true);
+	//util::playSound("sounds/music.wav", 2, true);
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);

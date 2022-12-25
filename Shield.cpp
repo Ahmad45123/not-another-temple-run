@@ -11,7 +11,7 @@ Shield::Shield(Vector pos, Vector rot, Gamemode type) {
 		0.005, 0.0030, 0.0050,
 		rotation.x, 40 , 90);
 	taken = false;
-	if (type == ROCK)
+	if (type == FIRE)
 		shieldModel->Load("models/shield/shield_2.3ds");
 }
 

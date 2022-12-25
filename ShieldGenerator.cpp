@@ -101,9 +101,11 @@ void ShieldGenerator::handleShieldExpiry() {
 	//gets called every 10 ms
 	if (player->gotShield) {
 		shieldRemainingTime -= 10 * 0.001;
+		player->shieldRemainingTime = shieldRemainingTime;
 		if (shieldRemainingTime <= 0) {
 			player->gotShield = false;
 			shieldRemainingTime = originalShieldTime;
+			player->shieldRemainingTime = 0;
 		}
 	}
 }
@@ -115,10 +117,11 @@ void ShieldGenerator::tick() {
 	for (auto& obs : shields) {
 		if (util::getDist(obs->position, Vector(player->curX, player->curY, player->curZ)) <= 0.05) {
 			if (abs((obs->position.y - 0.03) - player->curY - player->curHeight) <= 0.0055) {
-				if (player->STEP_SIZE != 0) { // TODO: change this
+				if (player->STEP_SIZE != 0 && !obs->taken) { // TODO: change this
 					util::playSound("sounds/shield.wav");
 					obs->taken = true;
 					shieldRemainingTime = originalShieldTime;
+					player->shieldRemainingTime = shieldRemainingTime;
 					player->gotShield = true;
 				}
 			}
