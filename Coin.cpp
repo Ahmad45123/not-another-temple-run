@@ -20,6 +20,4 @@ void Coin::draw(int rotAng) {
 		coinModel->rot.y = rotAng;
 		coinModel->Draw();
 	}
-		
-
 }

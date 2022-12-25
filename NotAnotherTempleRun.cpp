@@ -141,16 +141,43 @@ void drawString(string str, float x, float z) {
 	glPopMatrix();
 }
 
+void drawString2(string str, int x, int y, bool smll = false) {
+	glPushMatrix();
+	glRasterPos2i(x, y);
+	for (size_t i = 0; i < str.size(); ++i) {
+		glutBitmapCharacter(smll ? GLUT_BITMAP_TIMES_ROMAN_10 : GLUT_BITMAP_TIMES_ROMAN_24, (int)str[i]);
+	}
+	glPopMatrix();
+}
+
+
+//=======================================================================
+// Reshape Function
+//=======================================================================
+void myReshape(int w, int h)
+{
+	if (h == 0)
+		h = 1;
+	float ratio = w * 1.0 / h;
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glViewport(0, 0, w, h);
+	gluPerspective(fovy, ratio, zNear, zFar);
+	glMatrixMode(GL_MODELVIEW);
+	WIDTH = w;
+	HEIGHT = h;
+}
+
 //=======================================================================
 // Display Function
 //=======================================================================
-void myDisplay(void)
-{
+void myDisplay(void) {
+	
+	myReshape(WIDTH, HEIGHT);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	// Camera
-	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+	
+	// Camera
 	camera->draw();
 
 	GLfloat lightIntensity[] = { 0.7, 0.7, 0.7, 1.0f };
@@ -164,7 +191,7 @@ void myDisplay(void)
 	groundBuilder->drawForward();
 	groundBuilder->drawRight();
 	groundBuilder->drawForward();
-	groundBuilder->drawRight();
+	groundBuilder->drawRight();	
 	groundBuilder->drawForward();
 	groundBuilder->drawLeft();
 	groundBuilder->drawForward();
@@ -178,37 +205,51 @@ void myDisplay(void)
 	groundBuilder->drawForward();
 	groundBuilder->isFillGrounds = false;
 
+	glPushMatrix();
 	if (gameMode == ROCK) {
 		coinsGen->drawCoins();
 	}
 	else if (gameMode == FIRE) {
 		shieldGen->drawShield();
 	}
+	glPopMatrix();
+	
+	glPushMatrix();
 	obstacleGen->drawObstacles();
+	glPopMatrix();
 
 	//sky box
 	glPushMatrix();
-
-	GLUquadricObj* qobj;
-	qobj = gluNewQuadric();
-	glTranslated(50, 0, 0);
-	glRotated(90, 1, 0, 1);
-	glBindTexture(GL_TEXTURE_2D, tex);
-	gluQuadricTexture(qobj, true);
-	gluQuadricNormals(qobj, GL_SMOOTH);
-	gluSphere(qobj, 200, 100, 100);
-	gluDeleteQuadric(qobj);
+		GLUquadricObj* qobj;
+		qobj = gluNewQuadric();
+		glTranslated(50, 0, 0);
+		glRotated(90, 1, 0, 1);
+		glBindTexture(GL_TEXTURE_2D, tex);
+		gluQuadricTexture(qobj, true);
+		gluQuadricNormals(qobj, GL_SMOOTH);
+		gluSphere(qobj, 200, 100, 100);
+		gluDeleteQuadric(qobj);
 	glPopMatrix();
 
 	// Draw player
-	player->draw();
-
 	glPushMatrix();
+	player->draw();
+	glPopMatrix();
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(0, WIDTH, HEIGHT, 0, -1, 1);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glClear(GL_DEPTH_BUFFER_BIT);
+	
+	glPushMatrix();
+	glColor3f(255, 255, 255);
 	if (gameMode == ROCK) {
-		drawString("Coins Collected " + to_string(player->coins), player->playerModel.pos.x - 0.02, player->playerModel.pos.z);
+		drawString2("Coins Collected " + to_string(player->coins), 10, 30);
 	}
 	else if (gameMode == FIRE) {
-		drawString("Score " + to_string(gameTime), player->playerModel.pos.x - 0.02, player->playerModel.pos.z);
+		drawString2("Score " + to_string(gameTime), 10, 30);
 	}
 	glPopMatrix();
 
@@ -292,31 +333,6 @@ void specialKeyDown(int button, int x, int y) {
 void specialKeyUp(int button, int x, int y) {
 	camera->specialKeyUp(button);
 	player->specialKeyUp(button);
-}
-
-//=======================================================================
-// Reshape Function
-//=======================================================================
-void myReshape(int w, int h)
-{
-	if (h == 0) {
-		h = 1;
-	}
-	
-	WIDTH = w;
-	HEIGHT = h;
-	
-	// set the drawable region of the window
-	glViewport(0, 0, w, h);
-	
-	// set up the projection matrix 
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluPerspective(fovy, (GLdouble)WIDTH / (GLdouble)HEIGHT, zNear, zFar);
-	
-	// go back to modelview matrix so we can move the objects about
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
 }
 
 //=======================================================================
