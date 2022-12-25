@@ -96,6 +96,31 @@ void Player::leanLeft() {
     }
 }
 
+void Player::rotatePlayer() {
+    switch (curDirection) {
+    case NEGATIVE_X:
+        playerModel.rot.x = 90;
+        playerModel.rot.y = 0;
+        playerModel.rot.z = 90;
+        break;
+    case POSITIVE_X:
+        playerModel.rot.x = 90;
+        playerModel.rot.y = 0;
+        playerModel.rot.z = 270;
+        break;
+    case NEGATIVE_Z:
+        playerModel.rot.x = 270;
+        playerModel.rot.y = 180;
+        playerModel.rot.z = 0;
+        break;
+    case POSITIVE_Z:
+        playerModel.rot.x = 90;
+        playerModel.rot.y = 0;
+        playerModel.rot.z = 0;
+        break;
+    }
+}
+
 void Player::gotoNextGround() {
     curGround = (curGround + 1) % groundArray->size();
 }
@@ -199,8 +224,13 @@ void Player::tick() {
 }
 
 void Player::draw() {
+    glPushMatrix();
+    if (this->shieldRemainingTime > 0) {
+        glColor3f(0.0, 1.1 - (this->shieldRemainingTime / 5.0 * 1.0), 0.0);
+    }
     playerModel.Draw();
-	playerModel.rot.y = angle;
+	glPopMatrix();
+    rotatePlayer();
 	playerModel.pos.x = curX;
     playerModel.pos.z = curZ;
     playerModel.pos.y = curY + curHeight;

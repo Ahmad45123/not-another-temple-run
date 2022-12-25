@@ -28,9 +28,10 @@ class Player
     double curJumpStep = 0.0001;
 
     int coins = 0;
+    int shieldRemainingTime = 0;
     bool gotShield = false;
 		
-	Model_3DS playerModel = Model_3DS(curX, curY, curZ, 0.0005, 0.0005, 0.0005, 270, 0, 0);
+	Model_3DS playerModel = Model_3DS(curX, curY, curZ, 0.0005, 0.0005, 0.0005, 0, 0, 0);
 	
     Player(std::vector<GroundInfo> *grounds) {
 		playerModel.Load("models/player/Male1.3ds");
@@ -43,6 +44,7 @@ class Player
 
     void leanRight();
     void leanLeft();
+    void rotatePlayer();
 
     void gotoNextGround();
     void fall();
