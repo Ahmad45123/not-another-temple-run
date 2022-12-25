@@ -49,6 +49,8 @@ ShieldGenerator* shieldGen;
 
 
 GameStatus gameStatus = MAINMENU;
+float skyColor = 0.0;
+bool isSunSetting = true;
 
 //=======================================================================
 // Lighting Configuration Function
@@ -118,6 +120,7 @@ void myInit(void)
 	InitMaterial();
 
 	gameTime = 0;
+	skyColor = 0;
 	groundBuilder = new GroundBuilder();
 	player = new Player(&groundBuilder->grounds);
   
@@ -180,7 +183,18 @@ void myDisplay(void) {
 	// Camera
 	camera->draw();
 
-	GLfloat lightIntensity[] = { 0.7, 0.7, 0.7, 1.0f };
+	// Skycolor
+	if (isSunSetting) {
+		skyColor += 0.001;
+		if(skyColor >= 1)
+			isSunSetting = false;
+	}
+	else {
+		skyColor -= 0.001;
+		if (skyColor <= 0)
+			isSunSetting = true;
+	}
+	GLfloat lightIntensity[] = { skyColor, skyColor, skyColor, 1.0f };
 	GLfloat lightPosition[] = { 0.0f, 100.0f, 0.0f, 0.0f };
 	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, lightIntensity);
