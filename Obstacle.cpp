@@ -20,18 +20,8 @@ Obstacle::Obstacle(Vector pos, Vector rot, Gamemode type, Player* pl) {
 			rotation.x, rotation.y, rotation.z);
 		obstacleModel->Load("models/fire/fire.3ds");
 		obstacleModel->Objects[0].pos.y = -20;
-		obstacleModel->Objects[1].pos.y = 100000000000;
-		obstacleModel->Objects[2].pos.y = 100000000000;
-		obstacleModel->Objects[3].pos.y = 100000000000;
-		obstacleModel->Objects[4].pos.y = 100000000000;
-		obstacleModel->Objects[5].pos.y = 100000000000;
-		obstacleModel->Objects[6].pos.y = 100000000000;
-		obstacleModel->Objects[7].pos.y = 100000000000;
-		obstacleModel->Objects[8].pos.y = 100000000000;
-		obstacleModel->Objects[9].pos.y = 100000000000;
-		obstacleModel->Objects[10].pos.y = 100000000000;
-		obstacleModel->Objects[11].pos.y = 100000000000;
-		obstacleModel->Objects[12].pos.y = 100000000000;
+		for(int j = 1; j <= 12; j++)
+			obstacleModel->Objects[j].pos.y = 100000000000;
 		shiftFire();
 	}
 }

@@ -1,6 +1,9 @@
 #include "Player.h"
 
 #include <glut.h>
+#include <iostream>
+
+extern GameStatus gameStatus;
 
 Direction Player::getRightDirection() {
     switch (curDirection) {
@@ -220,6 +223,11 @@ void Player::tick() {
     if (isFalling) {
 		curHeight -= curJumpStep;
         curJumpStep *= 1.15;
+        if (curHeight < -20000) {
+            glutHideWindow();
+            std::cout << "\x1B[2J\x1B[H";
+            gameStatus = LOST;
+        }
     }
 }
 

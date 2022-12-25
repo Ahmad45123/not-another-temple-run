@@ -25,6 +25,13 @@ enum Gamemode {
     ROCK
 };
 
+enum GameStatus {
+    MAINMENU,
+    WON,
+    LOST,
+    PLAYING,
+};
+
 namespace util
 {
     void drawCube(double size, int repeatTextures = 1);

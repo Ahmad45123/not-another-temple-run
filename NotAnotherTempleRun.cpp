@@ -48,6 +48,7 @@ CoinsGenerator* coinsGen;
 ShieldGenerator* shieldGen;
 
 
+GameStatus gameStatus = MAINMENU;
 
 //=======================================================================
 // Lighting Configuration Function
@@ -116,6 +117,7 @@ void myInit(void)
 	InitLightSource();
 	InitMaterial();
 
+	gameTime = 0;
 	groundBuilder = new GroundBuilder();
 	player = new Player(&groundBuilder->grounds);
   
@@ -127,6 +129,7 @@ void myInit(void)
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_NORMALIZE);
+	gameStatus = PLAYING;
 }
 
 void drawString(string str, float x, float z) {
@@ -212,8 +215,11 @@ void myDisplay(void)
 	glutSwapBuffers();
 }
 
+//=======================================================================
+// Init Menus
+//=======================================================================
 void initMainMenu() {
-	int set[] = { 7, 7};
+	int color[] = { 7, 7};
 	int counter = 2;
 	char key;
 	while (true) {
@@ -222,11 +228,11 @@ void initMainMenu() {
 		cout << "Welcome to Not Another Temple Run" << endl;
 
 		util::changeCursor(70, 15);
-		util::color(set[0]);
+		util::color(color[0]);
 		cout << "Arcade Mode" << endl;
 
 		util::changeCursor(70, 25);
-		util::color(set[1]);
+		util::color(color[1]);
 		cout << "Survival Mode" << endl;
 
 		key = _getch();
@@ -247,13 +253,13 @@ void initMainMenu() {
 				break;
 			}
 		}
-		set[0] = 7;
-		set[1] = 7;
+		color[0] = 7;
+		color[1] = 7;
 		if (counter == 1) {
-			set[0] = 12;
+			color[0] = 12;
 		}
 		if (counter == 2) {
-			set[1] = 12;
+			color[1] = 12;
 		}
 	}
 }
@@ -318,8 +324,6 @@ void myReshape(int w, int h)
 //=======================================================================
 void LoadAssets()
 {
-	// Loading Model files
-	
 	// Loading texture files
 	loadBMP(&tex, "Textures/blu-sky-3.bmp", true);
 }
@@ -327,7 +331,74 @@ void LoadAssets()
 //=======================================================================
 // Timer Function
 //=======================================================================
+int color[] = { 7, 7, 7 };
+int counter = 2;
+char key;
 void timerFunc(int _) {
+	if (gameStatus != PLAYING) {
+
+		util::changeCursor(60, 3);
+		if (gameStatus == WON) {
+			util::color(32);
+			cout << "You won :)" << endl;
+		}
+		else {
+			util::color(12);
+			cout << "You lost :'(" << endl;
+		}
+
+		util::changeCursor(50, 12);
+		util::color(color[0]);
+		cout << "Restart in arcade" << endl;
+
+		util::changeCursor(50, 16);
+		util::color(color[1]);
+		cout << "Restart in survival" << endl;
+
+		util::changeCursor(50, 21);
+		util::color(color[2]);
+		cout << "Exit" << endl;
+
+		key = _getch();
+
+		if (key == 72 && counter > 1) {
+			counter--;
+		}
+		if (key == 80 && counter < 3) {
+			counter++;
+		}
+		if (key == '\r') {
+			if (counter == 1) {
+				gameMode = ROCK;
+			}
+			else if (counter == 2) {
+				gameMode = FIRE;
+			}
+			else if(counter == 3) {
+				exit(0);
+			}
+			myInit();
+			glutShowWindow();
+		}
+		
+		color[0] = 7;
+		color[1] = 7;
+		color[2] = 7;
+		
+		if (counter == 1)
+			color[0] = 12;
+		
+		if (counter == 2)
+			color[1] = 12;
+		
+		if (counter == 3)
+			color[2] = 12;
+
+
+		glutTimerFunc(10, timerFunc, 0);
+		return;
+	}
+	
 	camera->tick();
 	if (groundBuilder->grounds.size() > 0) {
 		player->tick();
@@ -343,6 +414,13 @@ void timerFunc(int _) {
 		shieldGen->tick();
 	}
 	gameTime++;
+
+	if (player->coins >= 50) {
+		glutHideWindow();
+		std::cout << "\x1B[2J\x1B[H";
+		gameStatus = WON;
+	}
+	
 	glutTimerFunc(10, timerFunc, 0);
 	glutPostRedisplay();
 }

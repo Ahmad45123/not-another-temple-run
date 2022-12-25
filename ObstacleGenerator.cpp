@@ -85,11 +85,12 @@ void ObstacleGenerator::drawObstacles() {
 	}
 }
 
+extern GameStatus gameStatus;
 void ObstacleGenerator::tick() {
 	for (auto& obs : obstacles) {		
 		if (util::getDist(obs->position, Vector(player->curX, player->curY, player->curZ)) <= 0.05) {
 			if (abs(obs->position.y - player->curY - player->curHeight) <= 0.0055) {
-				if (player->STEP_SIZE != 0) { // TODO: change this
+				if (gameStatus == PLAYING) {
 					if(!player->gotShield) {
 						if (currentMode == ROCK) {
 							util::playSound("sounds/rock.wav");
@@ -97,10 +98,10 @@ void ObstacleGenerator::tick() {
 						else if (currentMode == FIRE) {
 							util::playSound("sounds/fire.wav");
 						}
-						player->STEP_SIZE = 0;
-						player->curJumpStep = 0;
-				}
-
+						glutHideWindow();
+						std::cout << "\x1B[2J\x1B[H";
+						gameStatus = LOST;
+					}
 				}
 			}
 		}
