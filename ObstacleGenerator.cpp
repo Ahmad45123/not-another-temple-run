@@ -75,7 +75,7 @@ void ObstacleGenerator::generateObstacles() {
 		}
 
 		for (auto& obs : toBeAdded)
-			obstacles.push_back(new Obstacle(Vector(obs.first, y, obs.second), Vector(0, rot, 0), currentMode));
+			obstacles.push_back(new Obstacle(Vector(obs.first, y, obs.second), Vector(0, rot, 0), currentMode, player));
 	}
 }
 
@@ -91,7 +91,12 @@ void ObstacleGenerator::tick() {
 			if (abs(obs->position.y - player->curY - player->curHeight) <= 0.0055) {
 				if (player->STEP_SIZE != 0) { // TODO: change this
 					if(!player->gotShield) {
-						util::playSound("sounds/death.wav");
+						if (currentMode == ROCK) {
+							util::playSound("sounds/rock.wav");
+						}
+						else if (currentMode == FIRE) {
+							util::playSound("sounds/fire.wav");
+						}
 						player->STEP_SIZE = 0;
 						player->curJumpStep = 0;
 				}
