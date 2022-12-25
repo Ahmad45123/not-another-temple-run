@@ -83,7 +83,7 @@ void CoinsGenerator::tick() {
 	for (auto& obs : coins) {
 		if (util::getDist(obs->position, Vector(player->curX, player->curY, player->curZ)) <= 0.05) {
 			if (abs(( obs->position.y - 0.03 ) - player->curY - player->curHeight) <= 0.0055) {
-				if (player->STEP_SIZE != 0) { // TODO: change this
+				if (player->STEP_SIZE != 0 && !obs->taken) { // TODO: change this
 					util::playSound("sounds/coin.wav");
 					// Inc the coins by one
 					obs->taken = true;
