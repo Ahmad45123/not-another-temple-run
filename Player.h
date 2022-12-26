@@ -54,6 +54,9 @@ class Player
     void specialKeyDown(int c);
     void specialKeyUp(int c);
 
+    void mouseFunc(int button, int state, int x, int y);
+    void motionFunc(int x, int y);
+
     void tick();
     void draw();
 };

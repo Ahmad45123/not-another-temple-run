@@ -249,3 +249,38 @@ void Player::fall() {
     isFalling = true;
     util::playSound("sounds/fall.wav");
 }
+
+extern int WIDTH;
+void Player::motionFunc(int x, int y) {
+    if (gameStatus != PLAYING || groundArray->size() == 0) return;
+        
+    double xLoc = x*1.0 / WIDTH;
+    double pos = 0.2 * xLoc - 0.1;
+    
+    double center = groundArray->at(curGround).centerPos; // [center - 0.1, center + 0.1]
+    switch (curDirection) {
+    case NEGATIVE_X: 
+        curZ = center - pos;
+        break;
+    case POSITIVE_X:
+        curZ = center + pos;
+        break;
+    case NEGATIVE_Z:
+        curX = center + pos;
+        break;
+    case POSITIVE_Z:
+        curX = center - pos;
+        break;
+    }
+}
+
+int prevMouseState = GLUT_UP;
+void Player::mouseFunc(int button, int state, int x, int y) {
+    if (button == GLUT_LEFT_BUTTON) {
+		if (GLUT_DOWN != prevMouseState && state == GLUT_DOWN) {
+            util::playSound("sounds/jump.wav");
+            goingUp = true;
+		}
+        prevMouseState = state;
+    }
+}

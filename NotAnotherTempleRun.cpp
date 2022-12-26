@@ -455,6 +455,14 @@ void timerFunc(int _) {
 	glutPostRedisplay();
 }
 
+void mouseFunc(int button, int state, int x, int y) {
+	player->mouseFunc(button, state, x, y);
+}
+
+void motionFunc(int x, int y) {
+	player->motionFunc(x, y);
+}
+
 //=======================================================================
 // Main Function
 //=======================================================================
@@ -476,6 +484,8 @@ void main(int argc, char** argv)
 	glutKeyboardUpFunc(keyUp);
 	glutSpecialFunc(specialKeyDown);
 	glutSpecialUpFunc(specialKeyUp);
+	glutMouseFunc(mouseFunc);
+	glutPassiveMotionFunc(motionFunc);
 	glutTimerFunc(0, timerFunc, 0);
 
 	glutReshapeFunc(myReshape);
