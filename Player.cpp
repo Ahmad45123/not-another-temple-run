@@ -126,6 +126,7 @@ void Player::rotatePlayer() {
 
 void Player::gotoNextGround() {
     curGround = (curGround + 1) % groundArray->size();
+    STEP_SIZE *= 1.05;
 }
 
 void Player::keyDown(char c) {
