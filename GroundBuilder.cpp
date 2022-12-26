@@ -17,7 +17,7 @@ void GroundBuilder::drawBase() {
 
 	glBindTexture(GL_TEXTURE_2D, grndTexture.texture[0]);	// Bind the ground texture
 
-	glScaled(0.2, 0.02, 1.5);
+	glScaled(0.2, 5, 1.5);
 	util::drawCube(1, 2);
 
 	glEnable(GL_LIGHTING);	// Enable lighting again for other entites coming throung the pipeline.
@@ -46,28 +46,28 @@ void GroundBuilder::drawForward() {
 
 	switch (curDir) {
 	case NEGATIVE_Z:
-		curZ -= 0.55;
+		curZ -= 0.75;
 		offsetZ = curZ - 0.75;
 		curAngle = 0;
 		groundsOffset = offsetZ;
 		midPoint = curX;
 		break;
 	case POSITIVE_X:
-		curX += 0.55;
+		curX += 0.75;
 		offsetX = curX + 0.75;
 		curAngle = 90;
 		groundsOffset = offsetX;
 		midPoint = curZ;
 		break;
 	case POSITIVE_Z:
-		curZ += 0.55;
+		curZ += 0.75;
 		offsetZ = curZ + 0.75;
 		curAngle = 180;
 		groundsOffset = offsetZ;
 		midPoint = curX;
 		break;
 	case NEGATIVE_X:
-		curX -= 0.55;
+		curX -= 0.75;
 		offsetX = curX - 0.75;
 		curAngle = 270;
 		groundsOffset = offsetX;
@@ -79,7 +79,7 @@ void GroundBuilder::drawForward() {
 		grounds.push_back({ curDir, groundsOffset, midPoint });
 
 	glPushMatrix();
-	glTranslated(curX, 0, curZ);
+	glTranslated(curX, offsetY, curZ);
 	glRotated(curAngle, 0, 1, 0);
 	drawBase();
 	glPopMatrix();
@@ -97,7 +97,7 @@ void GroundBuilder::drawRight() {
 	case NEGATIVE_Z:
 		curDir = POSITIVE_X;
 		curZ += 0.1;
-		curX += 0.65;
+		curX += 0.85;
 		offsetZ = curZ;
 		offsetX = curX + 0.75;
 		curAngle = 90;
@@ -107,7 +107,7 @@ void GroundBuilder::drawRight() {
 	case POSITIVE_X:
 		curDir = POSITIVE_Z;
 		curX -= 0.1;
-		curZ += 0.65;
+		curZ += 0.85;
 		offsetX = curX;
 		offsetZ = curZ + 0.75;
 		curAngle = 180;
@@ -117,7 +117,7 @@ void GroundBuilder::drawRight() {
 	case POSITIVE_Z:
 		curDir = NEGATIVE_X;
 		curZ -= 0.1;
-		curX -= 0.65;
+		curX -= 0.85;
 		offsetZ = curZ;
 		offsetX = curX - 0.75;
 		curAngle = 270;
@@ -127,7 +127,7 @@ void GroundBuilder::drawRight() {
 	case NEGATIVE_X:
 		curDir = NEGATIVE_Z;
 		curX += 0.1;
-		curZ -= 0.65;
+		curZ -= 0.85;
 		offsetX = curX;
 		offsetZ = curZ - 0.75;
 		curAngle = 0;
@@ -140,7 +140,7 @@ void GroundBuilder::drawRight() {
 		grounds.push_back({ curDir, groundsOffset, midPoint });
 
 	glPushMatrix();
-	glTranslated(curX, 0, curZ);
+	glTranslated(curX, offsetY, curZ);
 	glRotated(curAngle, 0, 1, 0);
 	drawBase();
 	glPopMatrix();
@@ -158,7 +158,7 @@ void GroundBuilder::drawLeft() {
 	case NEGATIVE_Z:
 		curDir = NEGATIVE_X;
 		curZ += 0.1;
-		curX -= 0.65;
+		curX -= 0.85;
 		offsetZ = curZ;
 		offsetX = curX - 0.75;
 		curAngle = 270;
@@ -168,7 +168,7 @@ void GroundBuilder::drawLeft() {
 	case POSITIVE_X:
 		curDir = NEGATIVE_Z;
 		curX -= 0.1;
-		curZ -= 0.65;
+		curZ -= 0.85;
 		offsetX = curX;
 		offsetZ = curZ - 0.75;
 		curAngle = 0;
@@ -178,7 +178,7 @@ void GroundBuilder::drawLeft() {
 	case POSITIVE_Z:
 		curDir = POSITIVE_X;
 		curZ -= 0.1;
-		curX += 0.65;
+		curX += 0.85;
 		offsetZ = curZ;
 		offsetX = curX + 0.75;
 		curAngle = 90;
@@ -188,7 +188,7 @@ void GroundBuilder::drawLeft() {
 	case NEGATIVE_X:
 		curDir = POSITIVE_Z;
 		curX += 0.1;
-		curZ += 0.65;
+		curZ += 0.85;
 		offsetX = curX;
 		offsetZ = curZ + 0.75;
 		curAngle = 180;
@@ -201,7 +201,7 @@ void GroundBuilder::drawLeft() {
 		grounds.push_back({ curDir, groundsOffset, midPoint });
 
 	glPushMatrix();
-	glTranslated(curX, 0, curZ);
+	glTranslated(curX, offsetY, curZ);
 	glRotated(curAngle, 0, 1, 0);
 	drawBase();
 	glPopMatrix();

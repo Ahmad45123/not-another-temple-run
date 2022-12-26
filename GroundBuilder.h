@@ -11,6 +11,7 @@ public:
 
 	double offsetX = 0;
 	double offsetZ = 0;
+	double offsetY = -2.5;
 	Direction curDir = NEGATIVE_Z;
 	bool isFillGrounds = true;
 	std::vector<GroundInfo> grounds;
