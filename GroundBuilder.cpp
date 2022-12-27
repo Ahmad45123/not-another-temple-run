@@ -26,8 +26,13 @@ void GroundBuilder::drawBase() {
 	glPopMatrix();
 }
 
-GroundBuilder::GroundBuilder() {
-	grndTexture.Load("Textures/ground.bmp");
+GroundBuilder::GroundBuilder(Gamemode type) {
+	if (type == ROCK) {
+		grndTexture.Load("Textures/ground.bmp");
+	}
+	else if (type == FIRE) {
+		grndTexture.Load("Textures/lava.bmp");
+	}
 }
 
 void GroundBuilder::reset() {
