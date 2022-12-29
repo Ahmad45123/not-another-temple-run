@@ -16,7 +16,7 @@ public:
 	bool isFillGrounds = true;
 	std::vector<GroundInfo> grounds;
 
-	GroundBuilder();
+	GroundBuilder(Gamemode type);
 
 	void drawBase();
 	void reset();

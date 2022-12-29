@@ -25,6 +25,7 @@ int WIDTH = 1280;
 int HEIGHT = 720;
 
 GLuint tex;
+GLuint bgGround;
 char title[] = "Not Another Temple Run";
 Gamemode gameMode;
 
@@ -121,7 +122,7 @@ void myInit(void)
 
 	gameTime = 0;
 	skyColor = 0;
-	groundBuilder = new GroundBuilder();
+	groundBuilder = new GroundBuilder(gameMode);
 	player = new Player(&groundBuilder->grounds);
   
 	obstacleGen = new ObstacleGenerator(&groundBuilder->grounds, gameMode, player);
@@ -183,6 +184,28 @@ void myReshape(int w, int h)
 	glMatrixMode(GL_MODELVIEW);
 	WIDTH = w;
 	HEIGHT = h;
+}
+
+void drawBgGround() {
+	glPushMatrix();
+	glDisable(GL_TEXTURE_2D);
+	glEnable(GL_COLOR);
+	glDisable(GL_LIGHTING);	// Disable lighting 
+
+	glColor3f(0.6, 0.6, 0.6);	// Dim the ground texture a bit
+
+	glEnable(GL_TEXTURE_2D);	// Enable 2D texturing
+
+	glBindTexture(GL_TEXTURE_2D, bgGround);	// Bind the ground texture
+
+	glTranslated(0, -1, 0);
+	glScaled(50, 0.2, 50);
+	util::drawCube(1, 5);
+
+	glEnable(GL_LIGHTING);	// Enable lighting again for other entites coming throung the pipeline.
+
+	glColor3f(1, 1, 1);	// Set material back to white instead of grey used for the ground texture.
+	glPopMatrix();
 }
 
 //=======================================================================
@@ -259,6 +282,9 @@ void myDisplay(void) {
 		gluDeleteQuadric(qobj);
 	glPopMatrix();
 
+
+	//Draw sea
+	drawBgGround();
 	// Draw player
 	glPushMatrix();
 	player->draw();
@@ -372,7 +398,14 @@ void specialKeyUp(int button, int x, int y) {
 void LoadAssets()
 {
 	// Loading texture files
-	loadBMP(&tex, "Textures/blu-sky-3.bmp", true);
+	if (gameMode == FIRE) {
+		loadBMP(&tex, "Textures/hell-sky.bmp", true);
+		loadBMP(&bgGround, "Textures/lavaText.bmp", true);
+	}
+	else if (gameMode == ROCK) {
+		loadBMP(&tex, "Textures/blu-sky-3.bmp", true);
+		loadBMP(&bgGround, "Textures/sea.bmp", true);
+	}
 }
 
 //=======================================================================
@@ -424,6 +457,7 @@ void timerFunc(int _) {
 			else if(counter == 3) {
 				exit(0);
 			}
+			LoadAssets(); // called this function here again to get the ground depending on the chosen mode.
 			myInit();
 			glutShowWindow();
 		}
