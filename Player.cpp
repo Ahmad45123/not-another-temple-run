@@ -142,7 +142,7 @@ void Player::keyDown(char c) {
         gotoNextGround();
     }
 
-    if (!keys[' '] && c == ' ') {
+    if (!keys[' '] && c == ' ' && !goingUp && curHeight == 0) {
         util::playSound("sounds/jump.wav");
         goingUp = true;
     }
@@ -278,7 +278,7 @@ void Player::motionFunc(int x, int y) {
 int prevMouseState = GLUT_UP;
 void Player::mouseFunc(int button, int state, int x, int y) {
     if (button == GLUT_LEFT_BUTTON) {
-		if (GLUT_DOWN != prevMouseState && state == GLUT_DOWN) {
+		if (GLUT_DOWN != prevMouseState && state == GLUT_DOWN && !goingUp && curHeight == 0) {
             util::playSound("sounds/jump.wav");
             goingUp = true;
 		}
