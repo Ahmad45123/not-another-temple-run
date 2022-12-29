@@ -135,21 +135,35 @@ void myInit(void)
 	gameStatus = PLAYING;
 }
 
-void drawString(string str, float x, float z) {
+void drawString(string str, int x, int y) {
+	auto uchrs = reinterpret_cast<unsigned char*>(const_cast<char*>(str.c_str()));
+	
 	glPushMatrix();
-	glRasterPos3f(x, 0.14, z);
-	for (size_t i = 0; i < str.size(); ++i) {
-		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, (int)str[i]);
-	}
+	glDisable(GL_LIGHTING);
+	glDisable(GL_LIGHT0);
+	
+	glPushMatrix();
+		glColor3f(1, 1, 1);
+		glTranslated(x, y, 0);
+		glScaled(0.5, 0.5, 1);
+		glLineWidth(1);
+		for (size_t i = 0; i < str.size(); ++i) {
+			glutStrokeCharacter(GLUT_STROKE_ROMAN, (int)str[i]);
+		}
 	glPopMatrix();
-}
 
-void drawString2(string str, int x, int y, bool smll = false) {
 	glPushMatrix();
-	glRasterPos2i(x, y);
-	for (size_t i = 0; i < str.size(); ++i) {
-		glutBitmapCharacter(smll ? GLUT_BITMAP_TIMES_ROMAN_10 : GLUT_BITMAP_TIMES_ROMAN_24, (int)str[i]);
-	}
+		glColor3f(0, 0, 0);
+		glTranslated(x, y, 0);
+		glScaled(0.5, 0.5, 1);
+		glLineWidth(5);
+		for (size_t i = 0; i < str.size(); ++i) {
+			glutStrokeCharacter(GLUT_STROKE_ROMAN, (int)str[i]);
+		}
+	glPopMatrix();
+	
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
 	glPopMatrix();
 }
 
@@ -252,18 +266,21 @@ void myDisplay(void) {
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(0, WIDTH, HEIGHT, 0, -1, 1);
+	glOrtho(0, WIDTH, 0, HEIGHT, -1, 1);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glClear(GL_DEPTH_BUFFER_BIT);
 	
 	glPushMatrix();
-	glColor3f(255, 255, 255);
 	if (gameMode == ROCK) {
-		drawString2("Coins Collected " + to_string(player->coins), 10, 30);
+		drawString("COINS", WIDTH/2 - 130, HEIGHT - 70);
+		int offset = to_string(player->coins).size() * 15;
+		drawString(to_string(player->coins), WIDTH/2 - 50 - offset, HEIGHT - 150);
 	}
 	else if (gameMode == FIRE) {
-		drawString2("Score " + to_string(gameTime), 10, 30);
+		drawString("SCORE", WIDTH / 2 - 130, HEIGHT - 70);
+		int offset = to_string(gameTime).size() * 15;
+		drawString(to_string(gameTime), WIDTH / 2 - 50 - offset, HEIGHT - 150);
 	}
 	glPopMatrix();
 
