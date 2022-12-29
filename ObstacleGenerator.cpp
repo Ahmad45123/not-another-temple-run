@@ -86,6 +86,8 @@ void ObstacleGenerator::drawObstacles() {
 }
 
 extern GameStatus gameStatus;
+extern int gameTime;
+extern Player* player;
 void ObstacleGenerator::tick() {
 	for (auto& obs : obstacles) {		
 		if (util::getDist(obs->position, Vector(player->curX, player->curY, player->curZ)) <= 0.05) {
@@ -101,6 +103,13 @@ void ObstacleGenerator::tick() {
 						glutHideWindow();
 						std::cout << "\x1B[2J\x1B[H";
 						gameStatus = LOST;
+
+						if (currentMode == ROCK) {
+							util::showMessageBox("You collected " + std::to_string(player->coins) + " coins!");
+						}
+						else {
+							util::showMessageBox("You scored " + std::to_string(gameTime) + "!");
+						}
 					}
 				}
 			}

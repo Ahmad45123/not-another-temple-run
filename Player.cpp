@@ -170,6 +170,9 @@ void Player::specialKeyUp(int c) {
     specialKeys[c] = false;
 }
 
+extern Gamemode gameMode;
+extern int gameTime;
+
 void Player::tick() {
     int nextGround = (curGround + 1) % groundArray->size();
     Direction nxtGroundDir = groundArray->at(nextGround).dir;
@@ -228,6 +231,13 @@ void Player::tick() {
             glutHideWindow();
             std::cout << "\x1B[2J\x1B[H";
             gameStatus = LOST;
+
+            if (gameMode == ROCK) {
+				util::showMessageBox("You collected " + std::to_string(this->coins) + " coins!");
+            }
+            else {
+                util::showMessageBox("You scored " + std::to_string(gameTime) + "!");
+            }
         }
     }
 }

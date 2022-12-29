@@ -40,5 +40,6 @@ namespace util
     void playSound(std::string path, float vol = 1, bool loop = false);
     void color(int color);
     void changeCursor(int x, int y);
+    void showMessageBox(std::string msg);
 };
 

@@ -78,3 +78,6 @@ void util::changeCursor(int x, int y) {
 	coordinate.Y = y;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coordinate);
 }
+void util::showMessageBox(std::string msg) {
+	MessageBox(NULL, msg.c_str(), "Message", MB_OK);
+}
