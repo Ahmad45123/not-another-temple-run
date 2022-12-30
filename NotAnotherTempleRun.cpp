@@ -51,6 +51,7 @@ ShieldGenerator* shieldGen;
 
 GameStatus gameStatus = MAINMENU;
 float skyColor = 0.0;
+float lightPos = 0;
 bool isSunSetting = true;
 
 //=======================================================================
@@ -223,16 +224,18 @@ void myDisplay(void) {
 	// Skycolor
 	if (isSunSetting) {
 		skyColor += 0.001;
+		lightPos += 1;
 		if(skyColor >= 1)
 			isSunSetting = false;
 	}
 	else {
 		skyColor -= 0.001;
+		lightPos -= 1;
 		if (skyColor <= 0)
 			isSunSetting = true;
 	}
 	GLfloat lightIntensity[] = { skyColor, skyColor, skyColor, 1.0f };
-	GLfloat lightPosition[] = { 0.0f, 100.0f, 0.0f, 0.0f };
+	GLfloat lightPosition[] = { lightPos, lightPos, lightPos, 0.0f };
 	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, lightIntensity);
 
