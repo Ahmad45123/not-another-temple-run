@@ -499,7 +499,7 @@ void timerFunc(int _) {
 	}
 	gameTime++;
 
-	if (player->coins >= 50) {
+	if (player->coins >= 35) {
 		glutHideWindow();
 		std::cout << "\x1B[2J\x1B[H";
 		gameStatus = WON;
