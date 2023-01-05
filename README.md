@@ -20,6 +20,7 @@ The player is running endlessly with a target to live as much he/she can (no cer
 
 
 ## Video
+https://user-images.githubusercontent.com/8184424/210841475-dcafe007-d27a-4ed2-bb3f-a9291c30d361.mp4
 
 
 ## Game Camera
@@ -73,7 +74,7 @@ Develop a dynamic way to generate the turning ground of the game.
 - Add magnet feature in Arcade Mode.
 
 ## Authors 
--   [Ahmed Elwasefi](https://github.com/Ahmad45123)
 -   [Elshimaa Betah](https://github.com/ShimaaBetah)
+-   [Ahmed Elwasefi](https://github.com/Ahmad45123)
 -   [Abdulaziz Hassan](https://github.com/Abdulaziz-Hassan)
 -   [Mohamed Almarsafy](https://github.com/mokhallid80)
