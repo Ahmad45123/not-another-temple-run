@@ -52,15 +52,19 @@ there is a sound effect generated for different actions in the game
 Lights is modelled as one light source that changes its intensity and position to simulate day/night cycle
 
 ## Challenges 
-- develop a dynamic way to generate the turning ground of the game 
+develop a dynamic way to generate the turning ground of the game 
 
 **How we solved it** 
 - store the direction of each ground (NEGATIVE_X , NEGATIVE_Z , POSITIVE_X, POSITIVE_Z) beside its center
 - develop 3 methods `drawLeft` , `drawRight` , and `drawForward`  that takes the current ground object and return the new ground (its center and direction)
 
 ## Future Enhancements
-- use the dynamic way of generating ground to generate the ground dynamically at runtime
+- Use the dynamic way of generating ground to generate the ground dynamically at runtime
 - Add Magnet feature in Arcade Mode
 
 ## Authors 
+-   [Ahmed Elwasefi](https://github.com/Ahmad45123)
+-   [Elshimaa Betah](https://www.github.com/ShimaaBetah)
+-   [Abdulaziz Hassan](https://github.com/Abdulaziz-Hassan)
+-   [Mohamed Almarsafy](https://github.com/mokhallid80)
 
