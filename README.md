@@ -52,7 +52,7 @@ Camera eye is behind the player while camera center is the player itself
 - **Lose Action** : Collide with fire or falling off the ground (not following its turning)
 
 ## Sound effects 
-there is a sound effect generated for different actions in the game 
+There is a sound effect generated for different actions in the game 
 - Colliding with the rock in Arcade mode
 - Colliding with Fire in Survival mode
 - Collecting Coin in Arcade Mode
